@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'core/router.dart';
 
@@ -13,8 +14,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'QuickDeliver',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
         colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromRGBO(255, 193, 7, 1)),
         useMaterial3: true,
       ),
