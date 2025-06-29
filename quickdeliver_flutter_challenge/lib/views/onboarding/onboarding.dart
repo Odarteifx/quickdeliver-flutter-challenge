@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
+import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_get_started.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_view_one.dart';
+import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_view_three.dart';
+import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_view_two.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -13,11 +18,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _controller = PageController();
 
   bool onlastpage = false;
-  final pages = [PageViewOne(), Text('fry'), Text('data'), Text('datalast')];
+  final pages = [PageViewOne(), PageViewTwo(), PageViewThree(), OnboardingGetStarted()];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       backgroundColor: AppColors.background,
         body: SafeArea(
             child: Stack(
       children: [
@@ -34,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           },
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: Container(
               alignment: const Alignment(0, 0.9),
               child: Row(
@@ -56,10 +62,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     controller: _controller,
                     count: pages.length,
                     effect: ExpandingDotsEffect(
-                        activeDotColor: const Color(0xFFFFC107),
-                        dotWidth: 8,
-                        dotHeight: 8,
-                        spacing: 6),
+                        activeDotColor: AppColors.primary,
+                        dotWidth: 8.w,
+                        dotHeight: 8.h,
+                        spacing: 6.w),
                   ),
                   onlastpage
                       ? FilledButton(
@@ -71,9 +77,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 ));
                           },
                           style: FilledButton.styleFrom(
-                            backgroundColor: const Color(0xFFFFC107),
+                            backgroundColor:  AppColors.primary,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5))),
+                                  borderRadius: BorderRadius.circular(5.r))),
                           child: Text(
                             'Done',
                           ))
@@ -84,9 +90,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                 curve: Curves.easeIn);
                           },
                           style: FilledButton.styleFrom(
-                              backgroundColor: const Color(0xFFFFC107),
+                              backgroundColor: AppColors.primary,
                               shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5))),
+                                  borderRadius: BorderRadius.circular(5.r))),
                           child: Text(
                             'Next',
                           ))

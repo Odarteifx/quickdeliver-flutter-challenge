@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
 
 import 'core/router.dart';
 
@@ -13,15 +15,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'QuickDeliver',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromRGBO(255, 193, 7, 1)),
-        useMaterial3: true,
+    return ScreenUtilInit(
+      designSize: Size(390, 844),
+      child: MaterialApp.router(
+        title: 'QuickDeliver',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          textTheme: GoogleFonts.robotoTextTheme(),
+          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+          useMaterial3: true,
+        ),
+        routerConfig: router,
       ),
-      routerConfig: router,
     );
   }
 }
