@@ -60,7 +60,7 @@
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
-      debugServiceExtension = "internal"
+      debugServiceExtension = "poppinsnal"
       enableGPUValidationMode = "1"
       allowLocationSimulation = "YES">
       <BuildableProductRunnable

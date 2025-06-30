@@ -84,7 +84,7 @@ class Win32Window {
                                   WPARAM const wparam,
                                   LPARAM const lparam) noexcept;
 
-  // Retrieves a class instance pointer for |window|
+  // Retrieves a class instance popoppins for |window|
   static Win32Window* GetThisFromHandle(HWND const window) noexcept;
 
   // Update the window frame's theme to match the system theme.

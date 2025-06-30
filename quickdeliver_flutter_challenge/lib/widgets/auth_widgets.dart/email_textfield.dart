@@ -23,16 +23,16 @@ class EmailTextField extends StatelessWidget {
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(fontSize: AppFonts.subtext),
       decoration: InputDecoration(
-          hintText: 'Enter email address',
+          hintText: 'Email address',
           filled: true,
           fillColor: AppColors.background,
-          hintStyle: GoogleFonts.inter(color: AppColors.subtext, fontSize: AppFonts.subtext),
+          hintStyle: GoogleFonts.poppins(color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(10.r),
           ),
           enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: AppColors.iconColor),
-               borderRadius: BorderRadius.circular(12.r),
+               borderRadius: BorderRadius.circular(10.r),
               )),
     );
   }

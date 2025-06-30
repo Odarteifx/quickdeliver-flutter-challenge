@@ -20,14 +20,14 @@ class MajorButton extends StatelessWidget {
       child: FilledButton(
         style: FilledButton.styleFrom(
             shape: RoundedRectangleBorder(
-                 borderRadius: BorderRadius.circular(12.r),),
+                 borderRadius: BorderRadius.circular(10.r),),
             backgroundColor: AppColors.primary),
         onPressed: function,
         child: Text(
           buttonText,
-          style: GoogleFonts.inter(
+          style: GoogleFonts.poppins(
               fontSize: AppFonts.subtext,
-              fontWeight: AppFontweight.medium),
+              fontWeight: AppFontweight.semibold),
         ),
       ),
     );

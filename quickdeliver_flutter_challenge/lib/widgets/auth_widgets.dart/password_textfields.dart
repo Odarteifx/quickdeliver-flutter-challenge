@@ -54,13 +54,13 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               size: 22,
             ),
           ),
-          hintStyle: GoogleFonts.inter(color: AppColors.subtext, fontSize: AppFonts.subtext),
+          hintStyle: GoogleFonts.poppins(color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
-             borderRadius: BorderRadius.circular(12.r),
+             borderRadius: BorderRadius.circular(10.r),
           ),
           enabledBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: AppColors.iconColor),
-               borderRadius: BorderRadius.circular(12.r),
+               borderRadius: BorderRadius.circular(10.r),
                )),
     );
   }

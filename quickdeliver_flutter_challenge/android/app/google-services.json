@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "925807401475",
+    "project_id": "quickdeliver-d5e46",
+    "storage_bucket": "quickdeliver-d5e46.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:925807401475:android:53f68ca0e64647814f4c36",
+        "android_client_info": {
+          "package_name": "com.example.quickdeliver_flutter_challenge"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBU78zMuCBGc2vXpme3-sf6Qj8FTDguO4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

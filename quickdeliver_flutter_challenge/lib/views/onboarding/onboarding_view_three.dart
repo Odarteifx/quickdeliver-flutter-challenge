@@ -22,7 +22,7 @@ class PageViewThree extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: Text(
             'Safe, Reliable & Affordable',
-            style: GoogleFonts.inter(
+            style: GoogleFonts.poppins(
                 fontSize: AppFonts.heading2, fontWeight: AppFontweight.medium),
           ),
         ),
@@ -33,7 +33,7 @@ class PageViewThree extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: Text(
               'Every delivery matters to us.',
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                   fontSize: AppFonts.onboadingbody,
                   fontWeight: AppFontweight.light),
             )),
@@ -41,7 +41,7 @@ class PageViewThree extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: Text(
               'Our vetted riders, secure packaging, and competitive rates ensure your parcels arrive safely and on time — without breaking the bank.',
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                   fontSize: AppFonts.onboadingbody,
                   fontWeight: AppFontweight.light),
             )),

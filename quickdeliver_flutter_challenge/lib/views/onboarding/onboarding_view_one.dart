@@ -26,7 +26,7 @@ class PageViewOne extends StatelessWidget {
               children: [
                 Text(
                   'Welcome to ',
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.poppins(
                       fontSize: AppFonts.heading2,
                       fontWeight: AppFontweight.medium),
                 ),
@@ -35,7 +35,7 @@ class PageViewOne extends StatelessWidget {
                 ),
                 Text(
                   'QuickDeliver',
-                  style: GoogleFonts.inter(
+                  style: GoogleFonts.poppins(
                       fontSize: AppFonts.heading2,
                       fontWeight: AppFontweight.bold,
                       color: AppColors.primary),
@@ -50,7 +50,7 @@ class PageViewOne extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: Text(
               'Experience hassle-free deliveries for all your everyday needs. Fast, secure, and always dependable, wherever you are.',
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                   fontSize: AppFonts.onboadingbody,
                   fontWeight: AppFontweight.light),
             )),

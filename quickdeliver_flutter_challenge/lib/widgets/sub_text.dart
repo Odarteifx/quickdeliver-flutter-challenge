@@ -12,7 +12,7 @@ class SubText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       subtext, textAlign: TextAlign.center,
-      style: GoogleFonts.inter(
+      style: GoogleFonts.poppins(
           fontSize: AppFonts.subtext,
           fontWeight: AppFontweight.regular,
           color: AppColors.subtext),

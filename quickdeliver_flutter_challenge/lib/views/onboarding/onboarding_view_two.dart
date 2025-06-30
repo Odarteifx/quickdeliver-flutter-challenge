@@ -26,7 +26,7 @@ class _PageViewTwoState extends State<PageViewTwo> {
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: Text(
             'Real-time Tracking',
-            style: GoogleFonts.inter(
+            style: GoogleFonts.poppins(
                 fontSize: AppFonts.heading2, fontWeight: AppFontweight.medium),
           ),
         ),
@@ -37,7 +37,7 @@ class _PageViewTwoState extends State<PageViewTwo> {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: Text(
               'Stay updated with live tracking from pick-up to delivery. Know exactly where your package is, get notifications for every milestone, and enjoy complete peace of mind.',
-              style: GoogleFonts.inter(
+              style: GoogleFonts.poppins(
                   fontSize: AppFonts.onboadingbody,
                   fontWeight: AppFontweight.light),
             )),

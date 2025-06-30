@@ -28,18 +28,18 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>UISupportedInterfaceOrientations</key>
+	<key>UISupportedpoppinsfaceOrientations</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIpoppinsfaceOrientationPortrait</string>
+		<string>UIpoppinsfaceOrientationLandscapeLeft</string>
+		<string>UIpoppinsfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
+	<key>UISupportedpoppinsfaceOrientations~ipad</key>
 	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
+		<string>UIpoppinsfaceOrientationPortrait</string>
+		<string>UIpoppinsfaceOrientationPortraitUpsideDown</string>
+		<string>UIpoppinsfaceOrientationLandscapeLeft</string>
+		<string>UIpoppinsfaceOrientationLandscapeRight</string>
 	</array>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>

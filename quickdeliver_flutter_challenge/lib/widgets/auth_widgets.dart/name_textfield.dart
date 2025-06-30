@@ -24,16 +24,16 @@ class NameTextField extends StatelessWidget {
       keyboardType: TextInputType.name,
       style: TextStyle(fontSize: AppFonts.subtext),
       decoration: InputDecoration(
-          hintText: 'Full Name',
+          hintText: 'Full name',
           filled: true,
           fillColor: AppColors.background,
-          hintStyle: GoogleFonts.inter(color: AppColors.subtext, fontSize: AppFonts.subtext),
+          hintStyle: GoogleFonts.poppins(color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(10.r),
           ),
           enabledBorder:  OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.iconColor),
-            borderRadius: BorderRadius.circular(12.r),
+            borderRadius: BorderRadius.circular(10.r),
           )),
     );
   }

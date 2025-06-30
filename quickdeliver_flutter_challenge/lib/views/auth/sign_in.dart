@@ -1,50 +1,45 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
-import 'package:quickdeliver_flutter_challenge/core/app_fonts.dart';
-import 'package:quickdeliver_flutter_challenge/widgets/page_heading.dart';
-import 'package:quickdeliver_flutter_challenge/widgets/sub_text.dart';
 
+import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
+
+import '../../core/app_fonts.dart';
 import '../../widgets/auth_widgets.dart/action_btn.dart';
 import '../../widgets/auth_widgets.dart/auth_options.dart';
 import '../../widgets/auth_widgets.dart/email_textfield.dart';
-import '../../widgets/auth_widgets.dart/name_textfield.dart';
 import '../../widgets/auth_widgets.dart/password_textfields.dart';
+import '../../widgets/page_heading.dart';
+import '../../widgets/sub_text.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class SignIn extends StatefulWidget {
+  const SignIn({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<SignIn> createState() => _SignInState();
 }
 
-String name = '', email = '', password = '', confirmpassword = '';
+String email = '', password = '';
 
-class _SignUpState extends State<SignUp> {
-  late final TextEditingController _namecontroller;
+class _SignInState extends State<SignIn> {
   late final TextEditingController _emailcontroller;
   late final TextEditingController _passwordcontroller;
-  late final TextEditingController _confirmpasswordcontroller;
-  
+
   final _formkey = GlobalKey<FormState>();
 
   @override
   void initState() {
-    _namecontroller = TextEditingController();
     _emailcontroller = TextEditingController();
     _passwordcontroller = TextEditingController();
-    _confirmpasswordcontroller = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _namecontroller.dispose();
     _emailcontroller.dispose();
     _passwordcontroller.dispose();
-    _confirmpasswordcontroller.dispose();
     super.dispose();
   }
 
@@ -58,7 +53,7 @@ class _SignUpState extends State<SignUp> {
           child: Form(
               key: _formkey,
               child: Column(
-                spacing: 3.sp,
+                spacing: 5.sp,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -69,17 +64,10 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  const PageHeading(title: 'Create an Account'),
-                  const SubText(
-                    subtext:
-                        'Let\'s make it simple, create your account and join our delivery family today.',
-                  ),
+                  const PageHeading(title: 'Welcome Back!'),
+                  const SubText(subtext: 'Your deliveries, one tap away.'),
                   SizedBox(
                     height: 10.h,
-                  ),
-                  NameTextField(controller: _namecontroller),
-                  SizedBox(
-                    height: 5.h,
                   ),
                   EmailTextField(controller: _emailcontroller),
                   SizedBox(
@@ -92,27 +80,39 @@ class _SignUpState extends State<SignUp> {
                   SizedBox(
                     height: 5.h,
                   ),
-                  PasswordTextField(
-                    controller: _confirmpasswordcontroller,
-                    hintText: 'Confirm password',
-                  ),
-                  SizedBox(
-                    height: 5.h,
-                  ),
                   MajorButton(
-                    buttonText: 'Create Account',
+                    buttonText: 'Log in',
                     function: () {},
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Expanded(child: SizedBox()),
+                      InkWell(
+                        child: Text(
+                          'Forgot password?',
+                          style: GoogleFonts.poppins(
+                              color: AppColors.subtext,
+                              fontSize: AppFonts.termsfont,
+                              fontWeight: AppFontweight.regular),
+                        ),
+                        onTap: () {
+                          //forgot password
+                        },
+                      ),
+                    ],
+                  ),
                   SizedBox(
-                    height: 1.h,
+                    height: 2.sp,
                   ),
                   Text(
-                    'By continuing, you agree to QuickDeliver\'s Terms and Usage Policy, and acknoledge their Privacy Policy.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: AppFonts.termsfont, fontWeight: AppFontweight.light, color: AppColors.subtext),
+                    'OR',
+                    style: GoogleFonts.poppins(
+                        fontSize: AppFonts.subtext,
+                        fontWeight: AppFontweight.regular),
                   ),
                   SizedBox(
-                    height: 5.sp,
+                    height: 2.sp,
                   ),
                   AuthOption(
                     backgroundColor: AppColors.background,
@@ -121,7 +121,7 @@ class _SignUpState extends State<SignUp> {
                     auth: 'Continue with Google',
                   ),
                   SizedBox(
-                    height: 2.sp,
+                    height: 5.sp,
                   ),
                   AuthOption(
                     backgroundColor: Colors.black,
@@ -130,27 +130,25 @@ class _SignUpState extends State<SignUp> {
                     auth: 'Continue with Apple',
                   ),
                   SizedBox(
-                    height: 5.sp,
+                    height: 15.sp,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Already have an Account?  ',
+                        'Don’t have an account?   ',
                         textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
                             fontWeight: AppFontweight.regular),
                       ),
                       GestureDetector(
                           onTap: () {
-                            if (mounted) {
-                              context.go('/signin');
-                            }
+                            context.go('/signup');
                           },
-                          child: Text('Log In',
+                          child: Text('Sign Up',
                               style: GoogleFonts.poppins(
                                   color: AppColors.primary,
-                                  fontWeight: AppFontweight.semibold)))
+                                  fontWeight: AppFontweight.semibold))),
                     ],
                   )
                 ],

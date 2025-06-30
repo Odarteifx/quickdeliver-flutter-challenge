@@ -11,7 +11,7 @@ class PageHeading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: GoogleFonts.inter(
+      style: GoogleFonts.poppins(
         fontSize: AppFonts.heading2,
         fontWeight: AppFontweight.semibold,
       ),

@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:quickdeliver_flutter_challenge/views/auth/sign_in.dart';
 import 'package:quickdeliver_flutter_challenge/views/auth/sign_up.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding.dart';
 
@@ -17,6 +18,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/signup',
       builder: (context, state) => const SignUp(),
+    ),
+    GoRoute(
+      path: '/signin',
+      builder: (context, state) => const SignIn(),
     )
   ],
 );
