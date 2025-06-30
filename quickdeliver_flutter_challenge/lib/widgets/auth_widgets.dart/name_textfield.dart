@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/app_colors.dart';
+import '../../core/app_fonts.dart';
 
 class NameTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -21,11 +22,12 @@ class NameTextField extends StatelessWidget {
       },
       controller: controller,
       keyboardType: TextInputType.name,
+      style: TextStyle(fontSize: AppFonts.subtext),
       decoration: InputDecoration(
           hintText: 'Full Name',
           filled: true,
           fillColor: AppColors.background,
-          hintStyle: GoogleFonts.inter(color: AppColors.subtext),
+          hintStyle: GoogleFonts.inter(color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),

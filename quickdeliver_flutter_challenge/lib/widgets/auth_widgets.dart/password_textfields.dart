@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 import '../../core/app_colors.dart';
+import '../../core/app_fonts.dart';
 
 class PasswordTextField extends StatefulWidget {
   final TextEditingController controller;
@@ -34,12 +35,14 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
       },
       controller: widget.controller,
       keyboardType: TextInputType.visiblePassword,
+      style: TextStyle(fontSize: AppFonts.subtext),
       obscureText: _hidepassword,
       obscuringCharacter: '*',
       decoration: InputDecoration(
           hintText: widget.hintText,
           filled: true,
           fillColor: AppColors.background,
+          prefixIcon: Icon(Iconsax.lock_copy, size: 20,),
           suffixIcon: IconButton(
             onPressed: () {
               setState(() {
@@ -47,11 +50,11 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
               });
             },
             icon: Icon(
-              _hidepassword ? Iconsax.eye : Iconsax.eye_slash,
-              color: AppColors.subtext,
+              _hidepassword ? Iconsax.eye_copy : Iconsax.eye_slash_copy,
+              size: 22,
             ),
           ),
-          hintStyle: GoogleFonts.inter(color: AppColors.subtext),
+          hintStyle: GoogleFonts.inter(color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
              borderRadius: BorderRadius.circular(12.r),
           ),

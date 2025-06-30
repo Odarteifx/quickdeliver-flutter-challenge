@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
+import 'package:quickdeliver_flutter_challenge/core/app_fonts.dart';
 
 class EmailTextField extends StatelessWidget {
   final TextEditingController controller;
@@ -20,11 +21,12 @@ class EmailTextField extends StatelessWidget {
       },
       controller: controller,
       keyboardType: TextInputType.emailAddress,
+      style: TextStyle(fontSize: AppFonts.subtext),
       decoration: InputDecoration(
           hintText: 'Enter email address',
           filled: true,
           fillColor: AppColors.background,
-          hintStyle: GoogleFonts.inter(color: AppColors.subtext),
+          hintStyle: GoogleFonts.inter(color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12.r),
           ),

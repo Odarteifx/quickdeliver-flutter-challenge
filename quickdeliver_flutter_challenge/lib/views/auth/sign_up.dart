@@ -101,13 +101,16 @@ class _SignUpState extends State<SignUp> {
                     buttonText: 'Sign Up',
                     function: () {},
                   ),
+                  SizedBox(
+                    height: 1.h,
+                  ),
                   Text(
                     'By continuing, you agree to Nova\'s Consumer Terms and Usage Policy, and acknoledge their Privacy Policy.',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: AppFonts.termsfont),
                   ),
                   SizedBox(
-                    height: 15.sp,
+                    height: 5.sp,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -118,8 +121,8 @@ class _SignUpState extends State<SignUp> {
                       ),
                       GestureDetector(
                           onTap: () {},
-                          child: const Text('Log In',
-                              style: TextStyle(color: AppColors.primary)))
+                          child:  Text('Log In',
+                              style: TextStyle(color: AppColors.primary, fontWeight: AppFontweight.bold)))
                     ],
                   )
                   
