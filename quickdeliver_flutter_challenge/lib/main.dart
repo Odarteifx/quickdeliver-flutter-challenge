@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         title: 'QuickDeliver',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          textTheme: GoogleFonts.robotoTextTheme(),
+          textTheme: GoogleFonts.interTextTheme(),
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
         ),

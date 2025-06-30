@@ -22,7 +22,7 @@ class OnboardingGetStarted extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.h),
           child: Text(
             'Ready to Deliver Faster?',
-            style: GoogleFonts.roboto(
+            style: GoogleFonts.inter(
                 fontSize: AppFonts.heading2, fontWeight: AppFontweight.medium),
           ),
         ),
@@ -33,7 +33,7 @@ class OnboardingGetStarted extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.h),
             child: Text(
               'Sign up in seconds, set your pick-up and drop-off, and experience how quick and easy delivery can truly be.',
-              style: GoogleFonts.roboto(
+              style: GoogleFonts.inter(
                   fontSize: AppFonts.onboadingbody,
                   fontWeight: AppFontweight.light),
             )),
