@@ -57,12 +57,12 @@ list(APPEND FLUTTER_LIBRARY_HEADERS
   "flutter_linux.h"
 )
 list_prepend(FLUTTER_LIBRARY_HEADERS "${EPHEMERAL_DIR}/flutter_linux/")
-add_library(flutter poppinsFACE)
-target_include_directories(flutter poppinsFACE
+add_library(flutter Interface)
+target_include_directories(flutter Interface
   "${EPHEMERAL_DIR}"
 )
-target_link_libraries(flutter poppinsFACE "${FLUTTER_LIBRARY}")
-target_link_libraries(flutter poppinsFACE
+target_link_libraries(flutter Interface "${FLUTTER_LIBRARY}")
+target_link_libraries(flutter Interface
   PkgConfig::GTK
   PkgConfig::GLIB
   PkgConfig::GIO

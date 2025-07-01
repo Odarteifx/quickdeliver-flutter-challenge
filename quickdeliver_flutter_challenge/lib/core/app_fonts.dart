@@ -7,7 +7,7 @@ class AppFonts {
   static double onboadingbody = 16.0.sp;
   static double subtext = 14.0.sp;
   static double termsfont = 12.0.sp;
-  static double homepagecategories = 11.0.sp;
+  static double homepagecategories = 10.0.sp;
 }
 
 class AppFontweight {

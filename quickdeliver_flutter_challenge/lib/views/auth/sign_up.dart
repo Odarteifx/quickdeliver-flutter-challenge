@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,21 +16,21 @@ import '../../widgets/auth_widgets.dart/email_textfield.dart';
 import '../../widgets/auth_widgets.dart/name_textfield.dart';
 import '../../widgets/auth_widgets.dart/password_textfields.dart';
 
-class SignUp extends StatefulWidget {
+class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  ConsumerState<SignUp> createState() => _SignUpState();
 }
 
 String name = '', email = '', password = '', confirmpassword = '';
 
-class _SignUpState extends State<SignUp> {
+class _SignUpState extends ConsumerState<SignUp> {
   late final TextEditingController _namecontroller;
   late final TextEditingController _emailcontroller;
   late final TextEditingController _passwordcontroller;
   late final TextEditingController _confirmpasswordcontroller;
-  
+
   final _formkey = GlobalKey<FormState>();
 
   @override
@@ -46,6 +49,84 @@ class _SignUpState extends State<SignUp> {
     _passwordcontroller.dispose();
     _confirmpasswordcontroller.dispose();
     super.dispose();
+  }
+
+  registration() async {
+    if (_formkey.currentState!.validate()) {
+      name = _namecontroller.text.trim();
+      email = _emailcontroller.text.trim();
+      password = _passwordcontroller.text.trim();
+      confirmpassword = _confirmpasswordcontroller.text.trim();
+      if (password == confirmpassword &&
+          _namecontroller.text.isNotEmpty &&
+          _emailcontroller.text.isNotEmpty &&
+          _passwordcontroller.text.isNotEmpty) {
+        try {
+          final userCredential =
+              await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: email,
+            password: password,
+          );
+          FirebaseAuth.instance.currentUser
+              ?.updateDisplayName(_namecontroller.text.trim());
+
+          await FirebaseFirestore.instance
+              .collection('User')
+              .doc(userCredential.user!.uid)
+              .set({
+            'name': _namecontroller.text.trim(),
+            'email': email,
+            'id': userCredential.user!.uid,
+          });
+
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Center(child: Text('Account Successfully Created'))),
+            );
+            context.go('/home');
+          }
+        } on FirebaseAuthException catch (e) {
+          if (e.code == 'weak-password') {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                      'Your password is too simple. Try adding more characters, numbers, or symbols.')));
+            }
+          } else if (e.code == 'email-already-in-use') {
+            if (mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                      'Account already exists. Try logging in or use a different email.')));
+            }
+          } else {
+            if (mounted) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('${e.message}')));
+            }
+          } // ... (error handling remains the same)
+        } catch (e) {
+          // Handle any other errors
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Error: ${e.toString()}')),
+            );
+          }
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Passwords do not match'),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all fields'),
+        ),
+      );
+    }
   }
 
   @override
@@ -101,7 +182,9 @@ class _SignUpState extends State<SignUp> {
                   ),
                   MajorButton(
                     buttonText: 'Create Account',
-                    function: () {},
+                    function: () {
+                      registration();
+                    },
                   ),
                   SizedBox(
                     height: 1.h,
@@ -109,7 +192,10 @@ class _SignUpState extends State<SignUp> {
                   Text(
                     'By continuing, you agree to QuickDeliver\'s Terms and Usage Policy, and acknoledge their Privacy Policy.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: AppFonts.termsfont, fontWeight: AppFontweight.light, color: AppColors.subtext),
+                    style: TextStyle(
+                        fontSize: AppFonts.termsfont,
+                        fontWeight: AppFontweight.light,
+                        color: AppColors.subtext),
                   ),
                   SizedBox(
                     height: 5.sp,

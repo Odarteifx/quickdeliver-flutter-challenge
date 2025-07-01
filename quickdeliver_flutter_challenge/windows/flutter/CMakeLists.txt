@@ -32,11 +32,11 @@ list(APPEND FLUTTER_LIBRARY_HEADERS
   "flutter_texture_registrar.h"
 )
 list(TRANSFORM FLUTTER_LIBRARY_HEADERS PREPEND "${EPHEMERAL_DIR}/")
-add_library(flutter poppinsFACE)
-target_include_directories(flutter poppinsFACE
+add_library(flutter Interface)
+target_include_directories(flutter Interface
   "${EPHEMERAL_DIR}"
 )
-target_link_libraries(flutter poppinsFACE "${FLUTTER_LIBRARY}.lib")
+target_link_libraries(flutter Interface "${FLUTTER_LIBRARY}.lib")
 add_dependencies(flutter flutter_assemble)
 
 # === Wrapper ===
