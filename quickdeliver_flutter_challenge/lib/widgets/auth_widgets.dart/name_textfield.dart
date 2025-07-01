@@ -23,7 +23,7 @@ class NameTextField extends StatelessWidget {
        autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       keyboardType: TextInputType.name,
-      style: TextStyle(fontSize: AppFonts.subtext),
+      style: GoogleFonts.poppins(fontSize: AppFonts.subtext),
       decoration: InputDecoration(
           hintText: 'Full name',
           filled: true,

@@ -11,18 +11,20 @@ class AuthOption extends StatelessWidget {
     required this.textColor,
     required this.authIcon,
     required this.auth,
+    this.onPressed,
   });
   final Color backgroundColor;
   final Color textColor;
   final String authIcon;
   final String auth;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 50.h,
       child: TextButton(
-          onPressed: () {},
+          onPressed: onPressed ?? () {},
           style: TextButton.styleFrom(
               backgroundColor: backgroundColor,
               shape: RoundedRectangleBorder(

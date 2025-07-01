@@ -14,6 +14,7 @@ import '../../widgets/auth_widgets.dart/auth_options.dart';
 import '../../widgets/auth_widgets.dart/email_textfield.dart';
 import '../../widgets/auth_widgets.dart/name_textfield.dart';
 import '../../widgets/auth_widgets.dart/password_textfields.dart';
+import '../../services/auth_service.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -205,6 +206,9 @@ class _SignUpState extends State<SignUp> {
                     textColor: Colors.black,
                     authIcon: 'assets/icon/google.png',
                     auth: 'Continue with Google',
+                    onPressed: () async {
+                    
+                    },
                   ),
                   SizedBox(
                     height: 2.sp,
