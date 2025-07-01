@@ -33,6 +33,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
           return null;
         }
       },
+       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: widget.controller,
       keyboardType: TextInputType.visiblePassword,
       style: TextStyle(fontSize: AppFonts.subtext),

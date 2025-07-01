@@ -20,6 +20,7 @@ class NameTextField extends StatelessWidget {
           return null;
         }
       },
+       autovalidateMode: AutovalidateMode.onUserInteraction,
       controller: controller,
       keyboardType: TextInputType.name,
       style: TextStyle(fontSize: AppFonts.subtext),

@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -43,9 +44,48 @@ class _SignInState extends State<SignIn> {
     super.dispose();
   }
 
+  userLogin() async {
+    if (_formkey.currentState!.validate()) {
+      email = _emailcontroller.text.trim();
+      password = _passwordcontroller.text.trim();
+
+      try {
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+        if (mounted) {
+          context.go('/home');
+        }
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('No user found for that email.')));
+          }
+        } else if (e.code == 'wrong-password') {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text('Incorrect password. Please try again')));
+          }
+        } else {
+          if (mounted) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text('${e.message}')));
+          }
+        }
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please fill in all fields'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.background,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.h),
@@ -82,7 +122,9 @@ class _SignInState extends State<SignIn> {
                   ),
                   MajorButton(
                     buttonText: 'Log in',
-                    function: () {},
+                    function: () {
+                      userLogin();
+                    },
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,

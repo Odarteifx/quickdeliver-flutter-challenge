@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,16 +15,16 @@ import '../../widgets/auth_widgets.dart/email_textfield.dart';
 import '../../widgets/auth_widgets.dart/name_textfield.dart';
 import '../../widgets/auth_widgets.dart/password_textfields.dart';
 
-class SignUp extends ConsumerStatefulWidget {
+class SignUp extends StatefulWidget {
   const SignUp({super.key});
 
   @override
-  ConsumerState<SignUp> createState() => _SignUpState();
+  State<SignUp> createState() => _SignUpState();
 }
 
 String name = '', email = '', password = '', confirmpassword = '';
 
-class _SignUpState extends ConsumerState<SignUp> {
+class _SignUpState extends State<SignUp> {
   late final TextEditingController _namecontroller;
   late final TextEditingController _emailcontroller;
   late final TextEditingController _passwordcontroller;
@@ -132,6 +131,7 @@ class _SignUpState extends ConsumerState<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.background,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.h),

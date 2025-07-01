@@ -12,6 +12,7 @@ class EmailTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Enter your email address';
@@ -19,21 +20,22 @@ class EmailTextField extends StatelessWidget {
           return null;
         }
       },
-      controller: controller,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(fontSize: AppFonts.subtext),
       decoration: InputDecoration(
           hintText: 'Email address',
           filled: true,
           fillColor: AppColors.background,
-          hintStyle: GoogleFonts.poppins(color: AppColors.subtext, fontSize: AppFonts.subtext),
+          hintStyle: GoogleFonts.poppins(
+              color: AppColors.subtext, fontSize: AppFonts.subtext),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.r),
           ),
           enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.iconColor),
-               borderRadius: BorderRadius.circular(10.r),
-              )),
+            borderSide: BorderSide(color: AppColors.iconColor),
+            borderRadius: BorderRadius.circular(10.r),
+          )),
     );
   }
 }
