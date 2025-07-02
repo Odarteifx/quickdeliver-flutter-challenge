@@ -8,10 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
 
 import '../../core/app_fonts.dart';
-import '../../widgets/auth_widgets.dart/action_btn.dart';
-import '../../widgets/auth_widgets.dart/auth_options.dart';
-import '../../widgets/auth_widgets.dart/email_textfield.dart';
-import '../../widgets/auth_widgets.dart/password_textfields.dart';
+import '../../widgets/auth_widgets/action_btn.dart';
+import '../../widgets/auth_widgets/auth_options.dart';
+import '../../widgets/auth_widgets/email_textfield.dart';
+import '../../widgets/auth_widgets/password_textfields.dart';
 import '../../widgets/page_heading.dart';
 import '../../widgets/sub_text.dart';
 import '../../services/auth_service.dart';
