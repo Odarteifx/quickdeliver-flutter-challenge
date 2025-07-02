@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,11 +12,13 @@ class ActionBtn extends StatelessWidget {
     required this.action,
     required this.iconbackground,
     required this.backgroundColor,
+    required this.function,
   });
   final IconData actionlogo;
   final String action;
   final Color iconbackground;
   final Color backgroundColor;
+  final GestureTapCallback function;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class ActionBtn extends StatelessWidget {
       children: [
         InkWell(
           borderRadius: BorderRadius.circular(10.r),
-          onTap: () {},
+          onTap: function,
           child: Column(
             children: [
               Container(

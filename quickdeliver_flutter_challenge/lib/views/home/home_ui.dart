@@ -1,7 +1,7 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -35,112 +35,128 @@ String getGreeting() {
 }
 
 class _HomePageState extends State<HomePage> {
-
-   String? get displayName => user?.displayName;
+  String? get displayName => user?.displayName;
 
   String get greeting =>
       '${getGreeting()}, ${displayName?.split(' ').first ?? 'User'}';
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.h),
-            child: Stack(
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20.h),
+        child: Stack(
+          children: [
+            Column(
+              spacing: 20.h,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(
+                  height: 10.sp,
+                ),
+                Row(
+                  children: [
+                    Badge(
+                      alignment: Alignment(0.8.sp, 0.40.sp),
+                      smallSize: 10.sp,
+                      backgroundColor: Colors.green,
+                      child: CircleAvatar(
+                        backgroundImage: user?.photoURL != null
+                            ? NetworkImage(user!.photoURL!)
+                            : null,
+                        child: user?.photoURL == null
+                            ? Text(
+                                (user?.displayName?.isNotEmpty ?? false)
+                                    ? user!.displayName![0].toUpperCase()
+                                    : 'U',
+                                style: TextStyle(color: Colors.white),
+                              )
+                            : null,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 5.h,
+                    ),
+                    Text(
+                      greeting,
+                      style: GoogleFonts.poppins(
+                          fontSize: AppFonts.subtext,
+                          fontWeight: AppFontweight.medium,
+                          color: AppColors.primary),
+                    ),
+                    Spacer(),
+                    IconButton(onPressed: () {}, icon: Icon(Iconsax.scan)),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Iconsax.notification_copy,
+                      ),
+                      iconSize: 22.sp,
+                    )
+                  ],
+                ),
                 Column(
-                  spacing: 20.h,
+                  spacing: 10.sp,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 10.sp,
+                    Text(
+                      'Quick Actions',
+                      style: GoogleFonts.poppins(
+                          fontWeight: AppFontweight.medium,
+                          fontSize: AppFonts.onboadingbody),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Badge(
-                          alignment: Alignment(0.8.sp, 0.40.sp),
-                          smallSize: 10.sp,
-                          backgroundColor: Colors.green,
-                          child: CircleAvatar(
-                            backgroundImage: user?.photoURL != null
-                                ? NetworkImage(user!.photoURL!)
-                                : null,
-                            child: user?.photoURL == null
-                                ? Text(
-                                    (user?.displayName?.isNotEmpty ?? false)
-                                        ? user!.displayName![0].toUpperCase()
-                                        : 'U',
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                : null,
-                          ),
+                        ActionBtn(
+                          actionlogo: Iconsax.box_add_copy,
+                          action: 'New Delivery',
+                          iconbackground: AppColors.background,
+                          backgroundColor: AppColors.primary,
+                          function: (){
+                            context.push('/newdelivery');
+                          },
                         ),
-                        SizedBox(
-                          width: 5.h,
-                        ),
-                        Text(
-                          greeting,
-                          style: GoogleFonts.poppins(
-                              fontSize: AppFonts.subtext,
-                              fontWeight: AppFontweight.medium,
-                              color: AppColors.primary),
-                        ),
-                        Spacer(),
-                        IconButton(onPressed: () {}, icon: Icon(Iconsax.scan)),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Iconsax.notification_copy,
-                          ),
-                          iconSize: 22.sp,
+                        ActionBtn(
+                          actionlogo: Iconsax.box_search_copy,
+                          action: 'Track Package',
+                          iconbackground: Colors.white,
+                          backgroundColor: Colors.black,
+                          function:(){
+                            
+                          },
                         )
                       ],
                     ),
-                    Column(
-                      spacing: 10.sp,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Quick Actions',
-                          style: GoogleFonts.poppins(
-                              fontWeight: AppFontweight.medium,
-                              fontSize: AppFonts.onboadingbody),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            ActionBtn(
-                              actionlogo: Iconsax.box_add_copy,
-                              action: 'New Delivery',
-                              iconbackground: AppColors.background,
-                              backgroundColor: AppColors.primary,
-                            ),
-                            ActionBtn(
-                              actionlogo: Iconsax.box_search_copy,
-                              action: 'Track Package',
-                              iconbackground: Colors.white,
-                              backgroundColor: Colors.black,
-                            )
-                          ],
-                        ),
-                      ],
-                    ),
-                    Text('Your Deliveries', style: GoogleFonts.poppins(fontSize: AppFonts.onboadingbody, fontWeight: AppFontweight.medium),),
-                    SizedBox(height: 10.sp,),
-                    Expanded(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.background,
-                          borderRadius: BorderRadius.circular(10.r),
-                        ),
-                        child: Center(child: Text('No deliveries yet', style: GoogleFonts.poppins(fontWeight: AppFontweight.medium),)),
-                      ),
-                    ),
-                    
                   ],
+                ),
+                Text(
+                  'Your Deliveries',
+                  style: GoogleFonts.poppins(
+                      fontSize: AppFonts.onboadingbody,
+                      fontWeight: AppFontweight.medium),
+                ),
+                SizedBox(
+                  height: 10.sp,
+                ),
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppColors.background,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Center(
+                        child: Text(
+                      'No deliveries yet',
+                      style:
+                          GoogleFonts.poppins(fontWeight: AppFontweight.medium),
+                    )),
+                  ),
                 ),
               ],
             ),
-          ),
-        );
+          ],
+        ),
+      ),
+    );
   }
 }

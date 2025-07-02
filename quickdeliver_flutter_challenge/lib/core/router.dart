@@ -2,10 +2,9 @@ import 'package:go_router/go_router.dart';
 import 'package:quickdeliver_flutter_challenge/views/auth/sign_in.dart';
 import 'package:quickdeliver_flutter_challenge/views/auth/sign_up.dart';
 import 'package:quickdeliver_flutter_challenge/views/home/home_screen.dart';
-import 'package:quickdeliver_flutter_challenge/views/home/package_track.dart';
-import 'package:quickdeliver_flutter_challenge/views/home/user_profile.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding.dart';
 
+import '../views/package/new_package.dart';
 import '../views/splash/splash.dart';
 
 final GoRouter router = GoRouter(
@@ -31,9 +30,8 @@ final GoRouter router = GoRouter(
       builder: (context, state) => const AppHome(),
     ),
     GoRoute(
-      path: '/trackpackage',
-      builder: (context, state) => PackageTrack(),
-    ),
-    GoRoute(path: '/userprofile', builder: (context, state) => UserProfile(),)
+      path: '/newdelivery',
+      builder: (context, state) => NewDelivery(),
+    ) 
   ],
 );
