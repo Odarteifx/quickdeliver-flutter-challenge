@@ -148,7 +148,11 @@ class _HomePageState extends State<HomePage> {
                         child: Text(
                       'No deliveries yet',
                       style:
-                          GoogleFonts.poppins(fontWeight: AppFontweight.medium),
+                          GoogleFonts.poppins(
+                            fontSize: AppFonts.subtext,
+                            fontWeight: AppFontweight.medium,
+                            color: AppColors.iconColor
+                            ),
                     )),
                   ),
                 ),

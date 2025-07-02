@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
+import '../../services/order_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
 
 class NewDelivery extends StatefulWidget {
@@ -22,6 +24,40 @@ class _NewDeliveryState extends State<NewDelivery> {
       TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _instructionsController = TextEditingController();
+  final TextEditingController _sizeController = TextEditingController();
+
+  final _orderService = OrderService();
+
+  Future<void> submitOrder() async {
+    if (_formkey.currentState!.validate()) {
+      try {
+        await _orderService.createOrder(
+          pickupLocation: _pickupController.text.trim(),
+          dropOffLocation: _dropOffController.text.trim(),
+          receiverName: _receiverNameController.text.trim(),
+          receiverPhone: _receiverPhoneController.text.trim(),
+          description: _descriptionController.text.trim(),
+          instructions: _instructionsController.text.trim(), 
+          size: _sizeController.text.trim(),
+        );
+
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Order Placed Successfully!')),
+          );
+          context.pop();
+        }
+
+        // Go back to Home
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: ${e.toString()}')),
+          );
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +73,7 @@ class _NewDeliveryState extends State<NewDelivery> {
           child: Form(
             key: _formkey,
             child: Column(
-              spacing: 16.sp,
+              spacing: 10.sp,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 TextFormField(
@@ -64,7 +100,6 @@ class _NewDeliveryState extends State<NewDelivery> {
                     return null;
                   },
                 ),
-                // SizedBox(height: 16.h),
                 TextFormField(
                   controller: _dropOffController,
                   style: TextStyle(fontSize: AppFonts.subtext),
@@ -89,7 +124,6 @@ class _NewDeliveryState extends State<NewDelivery> {
                     return null;
                   },
                 ),
-                // SizedBox(height: 1.h),
                 TextFormField(
                   controller: _receiverNameController,
                   style: TextStyle(fontSize: AppFonts.subtext),
@@ -114,7 +148,6 @@ class _NewDeliveryState extends State<NewDelivery> {
                     return null;
                   },
                 ),
-                // SizedBox(height: 16.h),
                 TextFormField(
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -143,9 +176,8 @@ class _NewDeliveryState extends State<NewDelivery> {
                         borderRadius: BorderRadius.circular(10.r),
                       )),
                 ),
-                // SizedBox(height: 16.h),
                 TextFormField(
-                  controller: _descriptionController,
+                  controller: _sizeController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: TextStyle(fontSize: AppFonts.subtext),
                   decoration: InputDecoration(
@@ -168,7 +200,30 @@ class _NewDeliveryState extends State<NewDelivery> {
                     return null;
                   },
                 ),
-                // SizedBox(height: 16.h),
+                TextFormField(
+                  controller: _descriptionController,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  style: TextStyle(fontSize: AppFonts.subtext),
+                  decoration: InputDecoration(
+                      hintText: 'Package Size',
+                      filled: true,
+                      fillColor: AppColors.background,
+                      hintStyle: GoogleFonts.poppins(
+                          color: AppColors.subtext, fontSize: AppFonts.subtext),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: AppColors.iconColor),
+                        borderRadius: BorderRadius.circular(10.r),
+                      )),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Enter package size';
+                    }
+                    return null;
+                  },
+                ),
                 TextFormField(
                   controller: _instructionsController,
                   style: GoogleFonts.poppins(fontSize: AppFonts.subtext),
@@ -187,11 +242,11 @@ class _NewDeliveryState extends State<NewDelivery> {
                         borderRadius: BorderRadius.circular(10.r),
                       )),
                 ),
-                SizedBox(height: 32.h),
+                SizedBox(height: 10.h),
                 MajorButton(
                   buttonText: 'Place Order',
                   function: () {
-                    if (_formkey.currentState!.validate()) {}
+                    submitOrder();
                   },
                 )
               ],
