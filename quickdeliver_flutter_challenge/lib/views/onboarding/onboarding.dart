@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
+import 'package:quickdeliver_flutter_challenge/core/app_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_get_started.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_view_one.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding_view_three.dart';
@@ -60,7 +62,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               },
                               child: Text(
                                 'Skip',
-                                style: TextStyle(color: Colors.black),
+                                style: GoogleFonts.poppins(
+                                    fontSize: AppFonts.subtext,
+                                    color: Colors.black,
+                                    fontWeight: AppFontweight.medium),
                               )),
                       SmoothPageIndicator(
                         controller: _controller,
@@ -85,6 +90,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           BorderRadius.circular(5.r))),
                               child: Text(
                                 'Done',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: AppFontweight.medium,
+                                    fontSize: AppFonts.subtext),
                               ))
                           : FilledButton(
                               onPressed: () {
@@ -99,6 +107,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                                           BorderRadius.circular(5.r))),
                               child: Text(
                                 'Next',
+                                style: GoogleFonts.poppins(
+                                  fontWeight: AppFontweight.medium,
+                                    fontSize: AppFonts.subtext),
                               ))
                     ],
                   )),

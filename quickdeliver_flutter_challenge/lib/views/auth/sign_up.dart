@@ -78,9 +78,12 @@ class _SignUpState extends State<SignUp> {
             'email': email,
             'id': userCredential.user!.uid,
           });
+          
+          await FirebaseAuth.instance.currentUser?.reload();
 
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
+              
               const SnackBar(
                   content: Center(child: Text('Account Successfully Created'))),
             );
