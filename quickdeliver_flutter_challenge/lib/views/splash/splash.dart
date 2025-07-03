@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -29,18 +30,18 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Image.asset('assets/images/welcome_image.jpg', fit: BoxFit.cover,),
           Positioned(
-           top: 350,
+           top: 350.sp,
             left: 0,
             right: 0,
-            child: Image.asset('assets/logos/qkdeliver.png', height: 100, width: 100,)
+            child: Image.asset('assets/logos/qkdeliver.png', height: 100.h, width: 100.w,)
             ),
             Positioned(
-              bottom: 60,
-              left: 180,
+              bottom: 60.sp,
+              left: 180.sp,
               child: CircularProgressIndicator(
                 color: Colors.white,
-                strokeWidth: 2.5,
-                strokeAlign: -4,
+                strokeWidth: 2.5.r,
+                strokeAlign: -4.sp,
                 strokeCap:  StrokeCap.square,
                 
               ),

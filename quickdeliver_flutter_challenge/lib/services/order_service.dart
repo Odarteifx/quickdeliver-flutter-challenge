@@ -7,7 +7,7 @@ class OrderService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  Future<void> createOrder({
+  Future<String> createOrder({
     required String pickupLocation,
     required String dropOffLocation,
     required String receiverName,
@@ -18,10 +18,10 @@ class OrderService {
   }) async {
     final user = _auth.currentUser;
     if (user == null) throw Exception('No user logged in');
-     final trackingNumber = generateTrackingNumber();
+     final orderID = generateOrderID();
 
     await _firestore.collection('Orders').add({
-      'trackingNumber': trackingNumber,
+      'orderID': orderID,
       'pickupLocation': pickupLocation,
       'dropOffLocation': dropOffLocation,
       'receiverName': receiverName,
@@ -33,10 +33,11 @@ class OrderService {
       'createdAt': FieldValue.serverTimestamp(),
       'userId': user.uid,
     });
+     return orderID;
   }
 }
 
-String generateTrackingNumber() {
+String generateOrderID() {
   final now = DateTime.now();
   final datePart = "${now.year.toString().substring(2)}"
       "${now.month.toString().padLeft(2, '0')}"

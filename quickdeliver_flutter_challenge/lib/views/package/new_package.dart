@@ -31,24 +31,21 @@ class _NewDeliveryState extends State<NewDelivery> {
   Future<void> submitOrder() async {
     if (_formkey.currentState!.validate()) {
       try {
-        await _orderService.createOrder(
-          pickupLocation: _pickupController.text.trim(),
-          dropOffLocation: _dropOffController.text.trim(),
-          receiverName: _receiverNameController.text.trim(),
-          receiverPhone: _receiverPhoneController.text.trim(),
-          description: _descriptionController.text.trim(),
-          instructions: _instructionsController.text.trim(), 
-          size: _sizeController.text.trim(),
-        );
+        final orderID = await _orderService.createOrder(
+        pickupLocation: _pickupController.text.trim(),
+        dropOffLocation: _dropOffController.text.trim(),
+        receiverName: _receiverNameController.text.trim(),
+        receiverPhone: _receiverPhoneController.text.trim(),
+        description: _descriptionController.text.trim(),
+        instructions: _instructionsController.text.trim(),
+        size: _sizeController.text.trim(),
+      );
 
         if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Order Placed Successfully!')),
-          );
-          context.pop();
+          
+         context.go('/success', extra: orderID);
         }
 
-        // Go back to Home
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -177,7 +174,7 @@ class _NewDeliveryState extends State<NewDelivery> {
                       )),
                 ),
                 TextFormField(
-                  controller: _sizeController,
+                  controller:  _descriptionController ,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: TextStyle(fontSize: AppFonts.subtext),
                   decoration: InputDecoration(
@@ -201,9 +198,10 @@ class _NewDeliveryState extends State<NewDelivery> {
                   },
                 ),
                 TextFormField(
-                  controller: _descriptionController,
+                  controller: _sizeController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: TextStyle(fontSize: AppFonts.subtext),
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: 'Package Size',
                       filled: true,

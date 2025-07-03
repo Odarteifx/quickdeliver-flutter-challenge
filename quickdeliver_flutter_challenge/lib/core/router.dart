@@ -3,6 +3,7 @@ import 'package:quickdeliver_flutter_challenge/views/auth/sign_in.dart';
 import 'package:quickdeliver_flutter_challenge/views/auth/sign_up.dart';
 import 'package:quickdeliver_flutter_challenge/views/home/home_screen.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding.dart';
+import 'package:quickdeliver_flutter_challenge/views/package/sucessful_package.dart';
 
 import '../views/package/new_package.dart';
 import '../views/splash/splash.dart';
@@ -32,6 +33,13 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: '/newdelivery',
       builder: (context, state) => NewDelivery(),
-    ) 
+    ),
+    GoRoute(
+      path: '/success',
+      builder: (context, state) {
+        final orderID = state.extra as String;
+       return SucessfulPackage(orderID: orderID);
+      },
+    )
   ],
 );
