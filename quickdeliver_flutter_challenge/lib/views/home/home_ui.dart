@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
+import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/deliveries_list.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
@@ -135,27 +136,7 @@ class _HomePageState extends State<HomePage> {
                       fontSize: AppFonts.onboadingbody,
                       fontWeight: AppFontweight.medium),
                 ),
-                SizedBox(
-                  height: 10.sp,
-                ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.background,
-                      borderRadius: BorderRadius.circular(10.r),
-                    ),
-                    child: Center(
-                        child: Text(
-                      'No deliveries yet',
-                      style:
-                          GoogleFonts.poppins(
-                            fontSize: AppFonts.subtext,
-                            fontWeight: AppFontweight.medium,
-                            color: AppColors.iconColor
-                            ),
-                    )),
-                  ),
-                ),
+               DeliveriesList() 
               ],
             ),
           ],

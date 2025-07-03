@@ -245,7 +245,7 @@ class _NewDeliveryState extends State<NewDelivery> {
                 ),
                 SizedBox(height: 10.h),
                 MajorButton(
-                  buttonText: 'Place Order',
+                  buttonText: 'Submit',
                   function: () {
                     submitOrder();
                   },

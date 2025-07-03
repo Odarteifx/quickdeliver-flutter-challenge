@@ -33,6 +33,11 @@ class SucessfulPackage extends StatelessWidget {
               style: GoogleFonts.poppins(
                   fontSize: AppFonts.heading1, fontWeight: AppFontweight.bold),
             ),
+            Text(
+              'Your delivery has been booked',
+              style: GoogleFonts.poppins(
+                  fontSize: AppFonts.onboadingbody, fontWeight: AppFontweight.medium),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               spacing: 8.h,
