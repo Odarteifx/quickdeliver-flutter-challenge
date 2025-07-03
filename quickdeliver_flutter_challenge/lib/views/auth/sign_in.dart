@@ -14,7 +14,6 @@ import '../../widgets/auth_widgets/email_textfield.dart';
 import '../../widgets/auth_widgets/password_textfields.dart';
 import '../../widgets/page_heading.dart';
 import '../../widgets/sub_text.dart';
-import '../../services/auth_service.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -30,6 +29,7 @@ class _SignInState extends State<SignIn> {
   late final TextEditingController _passwordcontroller;
 
   final _formkey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -47,6 +47,8 @@ class _SignInState extends State<SignIn> {
 
   userLogin() async {
     if (_formkey.currentState!.validate()) {
+      setState(() => isLoading = true);
+
       email = _emailcontroller.text.trim();
       password = _passwordcontroller.text.trim();
 
@@ -73,6 +75,8 @@ class _SignInState extends State<SignIn> {
                 .showSnackBar(SnackBar(content: Text('${e.message}')));
           }
         }
+      } finally {
+        if (mounted) setState(() => isLoading = false);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -80,6 +84,7 @@ class _SignInState extends State<SignIn> {
           content: Text('Please fill in all fields'),
         ),
       );
+      setState(() => isLoading = false);
     }
   }
 
@@ -126,6 +131,7 @@ class _SignInState extends State<SignIn> {
                     function: () {
                       userLogin();
                     },
+                    isLoading: isLoading,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -162,9 +168,7 @@ class _SignInState extends State<SignIn> {
                     textColor: Colors.black,
                     authIcon: 'assets/icon/google.png',
                     auth: 'Continue with Google',
-                    onPressed: () async {
-                     
-                    },
+                    onPressed: () async {},
                   ),
                   SizedBox(
                     height: 5.sp,

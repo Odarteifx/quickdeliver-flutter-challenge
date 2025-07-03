@@ -9,7 +9,6 @@ import 'package:quickdeliver_flutter_challenge/core/app_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/page_heading.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/sub_text.dart';
 
-import '../../services/auth_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
 import '../../widgets/auth_widgets/auth_options.dart';
 import '../../widgets/auth_widgets/email_textfield.dart';
@@ -32,6 +31,7 @@ class _SignUpState extends State<SignUp> {
   late final TextEditingController _confirmpasswordcontroller;
 
   final _formkey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -53,6 +53,8 @@ class _SignUpState extends State<SignUp> {
 
   registration() async {
     if (_formkey.currentState!.validate()) {
+      setState(() => isLoading = true);
+
       name = _namecontroller.text.trim();
       email = _emailcontroller.text.trim();
       password = _passwordcontroller.text.trim();
@@ -115,6 +117,8 @@ class _SignUpState extends State<SignUp> {
               SnackBar(content: Text('Error: ${e.toString()}')),
             );
           }
+        }finally {
+          if (mounted) setState(() => isLoading = false);
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -122,6 +126,7 @@ class _SignUpState extends State<SignUp> {
             content: Text('Passwords do not match'),
           ),
         );
+        setState(() => isLoading = false);
       }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -129,6 +134,7 @@ class _SignUpState extends State<SignUp> {
           content: Text('Please fill in all fields'),
         ),
       );
+      setState(() => isLoading = false);
     }
   }
 
@@ -189,6 +195,7 @@ class _SignUpState extends State<SignUp> {
                     function: () {
                       registration();
                     },
+                    isLoading: isLoading,
                   ),
                   SizedBox(
                     height: 1.h,

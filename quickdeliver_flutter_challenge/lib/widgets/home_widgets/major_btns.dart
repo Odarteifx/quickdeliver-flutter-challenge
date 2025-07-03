@@ -13,12 +13,14 @@ class ActionBtn extends StatelessWidget {
     required this.iconbackground,
     required this.backgroundColor,
     required this.function,
+    this.isLoading = false,
   });
   final IconData actionlogo;
   final String action;
   final Color iconbackground;
   final Color backgroundColor;
   final GestureTapCallback function;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {

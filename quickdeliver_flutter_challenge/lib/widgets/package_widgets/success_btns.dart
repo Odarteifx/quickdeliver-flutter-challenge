@@ -11,7 +11,8 @@ class SuccessBtns extends StatelessWidget {
       required this.function,
       required this.backgroundColor,
       required this.borderColor,
-      required this.textColor});
+      required this.textColor,
+      });
 
   final String buttonText;
   final VoidCallback function;

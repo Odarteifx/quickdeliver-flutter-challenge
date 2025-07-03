@@ -28,30 +28,33 @@ class _NewDeliveryState extends State<NewDelivery> {
 
   final _orderService = OrderService();
 
+  bool isLoading = false;
+
   Future<void> submitOrder() async {
     if (_formkey.currentState!.validate()) {
+       setState(() => isLoading = true);
+
       try {
         final orderID = await _orderService.createOrder(
-        pickupLocation: _pickupController.text.trim(),
-        dropOffLocation: _dropOffController.text.trim(),
-        receiverName: _receiverNameController.text.trim(),
-        receiverPhone: _receiverPhoneController.text.trim(),
-        description: _descriptionController.text.trim(),
-        instructions: _instructionsController.text.trim(),
-        size: _sizeController.text.trim(),
-      );
+          pickupLocation: _pickupController.text.trim(),
+          dropOffLocation: _dropOffController.text.trim(),
+          receiverName: _receiverNameController.text.trim(),
+          receiverPhone: _receiverPhoneController.text.trim(),
+          description: _descriptionController.text.trim(),
+          instructions: _instructionsController.text.trim(),
+          size: _sizeController.text.trim(),
+        );
 
         if (mounted) {
-          
-         context.go('/success', extra: orderID);
+          context.go('/success', extra: orderID);
         }
-
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: ${e.toString()}')),
           );
         }
+          setState(() => isLoading = false);
       }
     }
   }
@@ -174,7 +177,7 @@ class _NewDeliveryState extends State<NewDelivery> {
                       )),
                 ),
                 TextFormField(
-                  controller:  _descriptionController ,
+                  controller: _descriptionController,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   style: TextStyle(fontSize: AppFonts.subtext),
                   decoration: InputDecoration(
@@ -246,6 +249,7 @@ class _NewDeliveryState extends State<NewDelivery> {
                   function: () {
                     submitOrder();
                   },
+                  isLoading: isLoading,
                 )
               ],
             ),
