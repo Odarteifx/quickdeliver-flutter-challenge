@@ -47,6 +47,7 @@ dependencies:
   http: ^1.4.0
   flutter_dotenv: ^5.2.1
   google_maps_flutter: ^2.12.3
+  firebase_messaging: ^15.2.9
 
 flutter_icons:
   android: true

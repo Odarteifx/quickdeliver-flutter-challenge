@@ -9,6 +9,7 @@ import 'package:quickdeliver_flutter_challenge/core/app_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/page_heading.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/sub_text.dart';
 
+import '../../services/notification_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
 import '../../widgets/auth_widgets/auth_options.dart';
 import '../../widgets/auth_widgets/email_textfield.dart';
@@ -69,7 +70,7 @@ class _SignUpState extends State<SignUp> {
             email: email,
             password: password,
           );
-          FirebaseAuth.instance.currentUser
+          await FirebaseAuth.instance.currentUser
               ?.updateDisplayName(_namecontroller.text.trim());
 
           await FirebaseFirestore.instance
@@ -80,12 +81,12 @@ class _SignUpState extends State<SignUp> {
             'email': email,
             'id': userCredential.user!.uid,
           });
-          
+
           await FirebaseAuth.instance.currentUser?.reload();
 
+          await setupFCM();
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-              
               const SnackBar(
                   content: Center(child: Text('Account Successfully Created'))),
             );
@@ -117,7 +118,7 @@ class _SignUpState extends State<SignUp> {
               SnackBar(content: Text('Error: ${e.toString()}')),
             );
           }
-        }finally {
+        } finally {
           if (mounted) setState(() => isLoading = false);
         }
       } else {
@@ -216,9 +217,7 @@ class _SignUpState extends State<SignUp> {
                     textColor: Colors.black,
                     authIcon: 'assets/icon/google.png',
                     auth: 'Continue with Google',
-                    onPressed: () async {
-                    
-                    },
+                    onPressed: () async {},
                   ),
                   SizedBox(
                     height: 2.sp,

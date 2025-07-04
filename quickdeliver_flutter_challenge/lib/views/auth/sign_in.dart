@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
 
 import '../../core/app_fonts.dart';
+import '../../services/notification_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
 import '../../widgets/auth_widgets/auth_options.dart';
 import '../../widgets/auth_widgets/email_textfield.dart';
@@ -55,6 +56,7 @@ class _SignInState extends State<SignIn> {
       try {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+           await setupFCM();
         if (mounted) {
           context.go('/home');
         }

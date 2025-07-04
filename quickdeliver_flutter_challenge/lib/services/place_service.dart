@@ -10,7 +10,7 @@ class PlaceService {
   Future<List<PlaceSuggestion>> getPlaceSuggestions(String input) async {
     final String baseUrl =
         'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-    final String apiKey ='AIzaSyAsbgmGJS6aQVd3tmqxyMM7QkIv89kfD3I';
+    final String apiKey =dotenv.env['GOOGLE_MAPS_API_KEY']!;
 
     final String url =
         '$baseUrl?input=$input&key=$apiKey&components=country:gh';
