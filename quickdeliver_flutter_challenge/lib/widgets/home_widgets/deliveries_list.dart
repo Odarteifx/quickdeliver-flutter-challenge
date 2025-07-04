@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/status_badge.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
@@ -70,71 +71,100 @@ class DeliveriesList extends StatelessWidget {
 
               return Card(
                 color: AppColors.background,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15.sp, vertical: 8.sp),
-                      child: Row(
-                        children: [
-                          Text(
-                            'Order ID: ',
-                            style: GoogleFonts.poppins(
-                                fontSize: AppFonts.termsfont,
-                                fontWeight: AppFontweight.medium),
-                          ),
-                          Text(
-                            ' $orderID',
-                            style: GoogleFonts.poppins(
-                                fontSize: AppFonts.termsfont,
-                                fontWeight: AppFontweight.bold,
-                                color: AppColors.primary),
-                          ),
-                          Spacer(),
-                          Container(
-                            decoration: BoxDecoration(),
-                            child: Text(status),
-                          )
-                        ],
+                child: InkWell(
+                  onTap: () {},
+                  child: Column(
+                    spacing: 2.sp,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.sp, vertical: 10.sp),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Order ID: ',
+                              style: GoogleFonts.poppins(
+                                  fontSize: AppFonts.termsfont,
+                                  fontWeight: AppFontweight.bold),
+                            ),
+                            Text(
+                              ' $orderID',
+                              style: GoogleFonts.poppins(
+                                  fontSize: AppFonts.termsfont,
+                                  fontWeight: AppFontweight.bold,
+                                  color: AppColors.subtext),
+                            ),
+                            Spacer(),
+                            StatusBadge(status: status)
+                          ],
+                        ),
                       ),
-                    ),
-                    Divider(
-                      color: AppColors.iconColor,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15.sp, vertical: 5.sp),
-                      child: Row(
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                 'Drop off: $dropOff',
-                                style: GoogleFonts.poppins(
-                                    fontWeight: AppFontweight.semibold),
-                              ),
-                              Row(
+                      Divider(
+                        color: AppColors.iconColor,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 15.sp, vertical: 5.sp),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                spacing: 10.h,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(receiver),
-                                  SizedBox(
-                                    width: 8.w,
+                                  RichText(
+                                    text: TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: 'Drop off: ',
+                                          style: GoogleFonts.poppins(
+                                            fontSize: AppFonts.subtext,
+                                            fontWeight: AppFontweight.semibold,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        TextSpan(
+                                          text: dropOff,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: AppFonts.subtext,
+                                            fontWeight: AppFontweight.regular,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Text(contact)
+                                  Row(
+                                    children: [
+                                      Text(
+                                        receiver,
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: AppFontweight.medium),
+                                      ),
+                                      SizedBox(
+                                        width: 5.w,
+                                      ),
+                                      Text(
+                                        contact,
+                                        style: GoogleFonts.poppins(
+                                            fontWeight: AppFontweight.semibold,
+                                            color: AppColors.subtext),
+                                      )
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          ),
-                          Spacer(),
-                          Icon(
-                            Icons.arrow_forward_ios,
-                            color: AppColors.primary,
-                            size: 15.sp,
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                              ),
+                            ),
+                            Icon(
+                              Icons.arrow_forward_ios,
+                              color: AppColors.primary,
+                              size: 15.sp,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               );
               // return Card(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
 import '../../services/order_service.dart';
+import '../../services/place_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
 
 class NewDelivery extends StatefulWidget {
@@ -27,12 +29,32 @@ class _NewDeliveryState extends State<NewDelivery> {
   final TextEditingController _sizeController = TextEditingController();
 
   final _orderService = OrderService();
+  final _placeService = PlaceService();
+
+  List<String> _pickupSuggestions = [];
+  List<String> _dropOffSuggestions = [];
+
+  void _getPickupSuggestions(String input) async {
+    if (input.length < 3) return;
+    final results = await _placeService.getPlaceSuggestions(input);
+    setState(() {
+      _pickupSuggestions = results;
+    });
+  }
+
+  void _getDropOffSuggestions(String input) async {
+    if (input.length < 3) return;
+    final results = await _placeService.getPlaceSuggestions(input);
+    setState(() {
+      _dropOffSuggestions = results;
+    });
+  }
 
   bool isLoading = false;
 
   Future<void> submitOrder() async {
     if (_formkey.currentState!.validate()) {
-       setState(() => isLoading = true);
+      setState(() => isLoading = true);
 
       try {
         final orderID = await _orderService.createOrder(
@@ -54,7 +76,7 @@ class _NewDeliveryState extends State<NewDelivery> {
             SnackBar(content: Text('Error: ${e.toString()}')),
           );
         }
-          setState(() => isLoading = false);
+        setState(() => isLoading = false);
       }
     }
   }
@@ -79,6 +101,7 @@ class _NewDeliveryState extends State<NewDelivery> {
                 TextFormField(
                   controller: _pickupController,
                   style: TextStyle(fontSize: AppFonts.subtext),
+                  onChanged: _getPickupSuggestions,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                       hintText: 'Pickup Location',
@@ -100,9 +123,27 @@ class _NewDeliveryState extends State<NewDelivery> {
                     return null;
                   },
                 ),
+                if (_pickupSuggestions.isNotEmpty)
+                    ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: _pickupSuggestions.length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          title: Text(_pickupSuggestions[index]),
+                          onTap: () {
+                            _pickupController.text = _pickupSuggestions[index];
+                            setState(() {
+                              _pickupSuggestions = [];
+                            });
+                          },
+                        );
+                      },
+                    ),
+                    
                 TextFormField(
                   controller: _dropOffController,
                   style: TextStyle(fontSize: AppFonts.subtext),
+                  onChanged: _getDropOffSuggestions,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: InputDecoration(
                       hintText: 'Drop-off Location',
@@ -124,6 +165,28 @@ class _NewDeliveryState extends State<NewDelivery> {
                     return null;
                   },
                 ),
+                if (_dropOffSuggestions.isNotEmpty)
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _dropOffSuggestions.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(
+                          _dropOffSuggestions[index],
+                          style: GoogleFonts.poppins(
+                            fontSize: AppFonts.subtext,
+                          ),
+                        ),
+                        onTap: () {
+                          _dropOffController.text = _dropOffSuggestions[index];
+                          setState(() {
+                            _dropOffSuggestions.clear();
+                          });
+                        },
+                      );
+                    },
+                  ),
                 TextFormField(
                   controller: _receiverNameController,
                   style: TextStyle(fontSize: AppFonts.subtext),
