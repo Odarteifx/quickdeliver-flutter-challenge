@@ -70,11 +70,22 @@ class DeliveriesList extends StatelessWidget {
               final contact = doc['receiverPhone'];
 
               return Card(
+                elevation: 0,
+                margin: EdgeInsets.symmetric(vertical: 8.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                  side: BorderSide(
+                    color: AppColors.iconColor.withValues(alpha: 0.6)
+                        , // your border color
+                    width: 1, // border thickness
+                  ),
+                ),
                 color: AppColors.background,
                 child: InkWell(
+                  borderRadius: BorderRadius.circular(12.r),
                   onTap: () {},
                   child: Column(
-                    spacing: 2.sp,
+                    spacing: 1.sp,
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
@@ -167,18 +178,6 @@ class DeliveriesList extends StatelessWidget {
                   ),
                 ),
               );
-              // return Card(
-              //   margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              //   child: ListTile(
-              //     leading: const Icon(Icons.local_shipping),
-              //     title: Text('Order: $orderID'),
-              //     subtitle: Text('Pickup: $pickup\nDrop-off: $dropOff\nStatus: $status'),
-              //     trailing: Icon(Icons.arrow_forward_ios),
-              //     onTap: () {
-
-              //     },
-              //   ),
-              // );
             },
           );
         },

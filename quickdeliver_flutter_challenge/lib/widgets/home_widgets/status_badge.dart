@@ -13,26 +13,30 @@ class StatusBadge extends StatelessWidget {
   Color getBackgroundColor() {
     switch (status) {
       case 'Placed':
-        return Colors.grey.withValues(alpha: 0.15);
+        return Colors.amber.withValues(alpha: 0.2);
+      case 'Picked Up':
+        return Colors.blue.withValues(alpha: 0.2);
+      case 'In Transit':
+        return Colors.teal.withValues(alpha: 0.2);
       case 'Delivered':
-        return Colors.green.withValues(alpha: 0.15);
-      case 'Cancelled':
-        return Colors.red.withValues(alpha: 0.15);
+        return Colors.green.withValues(alpha: 0.2);
       default:
-        return Colors.grey.withValues(alpha: 0.15);
+        return Colors.grey.withValues(alpha: 0.2);
     }
   }
 
-  Color getTextColor() {
+  Color? getTextColor() {
     switch (status) {
-      case 'Placed':
-        return Colors.grey;
+     case 'Placed':
+        return Colors.amber[700];
+      case 'Picked Up':
+        return Colors.blue[700];
+      case 'In Transit':
+        return Colors.teal[700];
       case 'Delivered':
-        return Colors.green.shade700;
-      case 'Cancelled':
-        return Colors.red.shade700;
+        return Colors.green[700];
       default:
-        return Colors.grey.shade700;
+        return Colors.grey;
     }
   }
 
@@ -47,7 +51,7 @@ class StatusBadge extends StatelessWidget {
       child: Text(
         status,
         style: GoogleFonts.poppins(
-          fontSize: AppFonts.termsfont,
+          fontSize: 10.sp,
           fontWeight: AppFontweight.medium,
           color: getTextColor(),
         ),
