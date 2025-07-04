@@ -34,12 +34,12 @@
 
 ## 📂 Project Structure
 
-lib/
- ├── core/         # Colors, fonts, router
- ├── screens/      # All UI screens (Login, Signup, Orders, Profile, Details)
- ├── widgets/      # Reusable widgets (buttons, steppers, badges)
- ├── services/     # Firebase & Google Maps services
- ├── main.dart     # App entry point & FCM setup
+- lib/
+- ├── core/         # Colors, fonts, router
+- ├── screens/      # All UI screens (Login, Signup, Orders, Profile, Details)
+- ├── widgets/      # Reusable widgets (buttons, steppers, badges)
+- ├── services/     # Firebase & Google Maps services
+- ├── main.dart     # App entry point & FCM setup
 
 ## ⚙️ Setup Instructions
 
