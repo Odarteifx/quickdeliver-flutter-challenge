@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
 
 class StatusBadge extends StatelessWidget {
@@ -20,6 +19,8 @@ class StatusBadge extends StatelessWidget {
         return Colors.teal.withValues(alpha: 0.2);
       case 'Delivered':
         return Colors.green.withValues(alpha: 0.2);
+      case 'Cancelled':
+        return Colors.red.withValues(alpha: 0.2);
       default:
         return Colors.grey.withValues(alpha: 0.2);
     }
@@ -27,7 +28,7 @@ class StatusBadge extends StatelessWidget {
 
   Color? getTextColor() {
     switch (status) {
-     case 'Placed':
+      case 'Placed':
         return Colors.amber[700];
       case 'Picked Up':
         return Colors.blue[700];
@@ -35,6 +36,8 @@ class StatusBadge extends StatelessWidget {
         return Colors.teal[700];
       case 'Delivered':
         return Colors.green[700];
+      case 'Cancelled':
+        return Colors.red[700]!;
       default:
         return Colors.grey;
     }

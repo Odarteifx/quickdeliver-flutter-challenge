@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
+import '../../models/place_suggestions.dart';
 import '../../services/order_service.dart';
 import '../../services/place_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
@@ -31,16 +32,25 @@ class _NewDeliveryState extends State<NewDelivery> {
   final _orderService = OrderService();
   final _placeService = PlaceService();
 
-  List<String> _pickupSuggestions = [];
-  List<String> _dropOffSuggestions = [];
+  List<PlaceSuggestion> _pickupSuggestions = [];
+  List<PlaceSuggestion> _dropOffSuggestions = [];
+
+
+  double? _pickupLat;
+  double? _pickupLng;
+  double? _dropOffLat;
+  double? _dropOffLng;
 
   void _getPickupSuggestions(String input) async {
     if (input.length < 3) return;
+
     final results = await _placeService.getPlaceSuggestions(input);
+
     setState(() {
       _pickupSuggestions = results;
     });
   }
+
 
   void _getDropOffSuggestions(String input) async {
     if (input.length < 3) return;
@@ -65,6 +75,10 @@ class _NewDeliveryState extends State<NewDelivery> {
           description: _descriptionController.text.trim(),
           instructions: _instructionsController.text.trim(),
           size: _sizeController.text.trim(),
+          pickupLat: _pickupLat!,
+          pickupLng: _pickupLng!,
+          dropOffLat: _dropOffLat!,
+          dropOffLng: _dropOffLng!,
         );
 
         if (mounted) {
@@ -87,7 +101,12 @@ class _NewDeliveryState extends State<NewDelivery> {
       backgroundColor: AppColors.background,
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        title: const Text("New Delivery"),
+        title: Text(
+          "New Delivery",
+          style: GoogleFonts.poppins(
+            fontWeight: AppFontweight.semibold,
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -124,22 +143,33 @@ class _NewDeliveryState extends State<NewDelivery> {
                   },
                 ),
                 if (_pickupSuggestions.isNotEmpty)
-                    ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: _pickupSuggestions.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          title: Text(_pickupSuggestions[index]),
-                          onTap: () {
-                            _pickupController.text = _pickupSuggestions[index];
-                            setState(() {
-                              _pickupSuggestions = [];
-                            });
-                          },
-                        );
-                      },
-                    ),
-                    
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: _pickupSuggestions.length,
+                    itemBuilder: (context, index) {
+                      final suggestion = _pickupSuggestions[index];
+                      return ListTile(
+                        title: Text(
+                          suggestion.description,
+                          style:
+                              GoogleFonts.poppins(fontSize: AppFonts.subtext),
+                        ),
+                        onTap: () async {
+                          _pickupController.text = suggestion.description;
+
+                          final latlng = await _placeService
+                              .getPlaceLatLng(suggestion.placeId);
+                          _pickupLat = latlng['lat'];
+                          _pickupLng = latlng['lng'];
+
+                          setState(() {
+                            _pickupSuggestions.clear();
+                          });
+                        },
+                      );
+                    },
+                  ),
                 TextFormField(
                   controller: _dropOffController,
                   style: TextStyle(fontSize: AppFonts.subtext),
@@ -171,15 +201,21 @@ class _NewDeliveryState extends State<NewDelivery> {
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _dropOffSuggestions.length,
                     itemBuilder: (context, index) {
+                      final suggestion = _dropOffSuggestions[index];
                       return ListTile(
                         title: Text(
-                          _dropOffSuggestions[index],
-                          style: GoogleFonts.poppins(
-                            fontSize: AppFonts.subtext,
-                          ),
+                          suggestion.description,
+                          style:
+                              GoogleFonts.poppins(fontSize: AppFonts.subtext),
                         ),
-                        onTap: () {
-                          _dropOffController.text = _dropOffSuggestions[index];
+                        onTap: () async {
+                          _dropOffController.text = suggestion.description;
+
+                          final latlng = await _placeService
+                              .getPlaceLatLng(suggestion.placeId);
+                          _dropOffLat = latlng['lat'];
+                          _dropOffLng = latlng['lng'];
+
                           setState(() {
                             _dropOffSuggestions.clear();
                           });

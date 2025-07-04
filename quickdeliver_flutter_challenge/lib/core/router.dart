@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdeliver_flutter_challenge/views/auth/sign_in.dart';
 import 'package:quickdeliver_flutter_challenge/views/auth/sign_up.dart';
 import 'package:quickdeliver_flutter_challenge/views/home/home_screen.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding.dart';
+import 'package:quickdeliver_flutter_challenge/views/package/order_details.dart';
 import 'package:quickdeliver_flutter_challenge/views/package/sucessful_package.dart';
 
 import '../views/package/new_package.dart';
@@ -38,7 +40,14 @@ final GoRouter router = GoRouter(
       path: '/success',
       builder: (context, state) {
         final orderID = state.extra as String;
-       return SucessfulPackage(orderID: orderID);
+        return SucessfulPackage(orderID: orderID);
+      },
+    ),
+    GoRoute(
+      path: '/orderDetails',
+      builder: (context, state) {
+        final order = state.extra as DocumentSnapshot;
+        return OrderDetailsScreen(order: order);
       },
     )
   ],

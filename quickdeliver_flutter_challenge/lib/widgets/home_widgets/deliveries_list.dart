@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/status_badge.dart';
 
@@ -63,7 +64,6 @@ class DeliveriesList extends StatelessWidget {
             itemBuilder: (context, index) {
               final doc = orders[index];
               final orderID = doc['orderID'];
-              // final pickup = doc['pickupLocation'];
               final dropOff = doc['dropOffLocation'];
               final status = doc['status'];
               final receiver = doc['receiverName'];
@@ -75,15 +75,16 @@ class DeliveriesList extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.r),
                   side: BorderSide(
-                    color: AppColors.iconColor.withValues(alpha: 0.6)
-                        , // your border color
-                    width: 1, // border thickness
+                    color: AppColors.iconColor.withValues(alpha: 0.6),
+                    width: 1,
                   ),
                 ),
                 color: AppColors.background,
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12.r),
-                  onTap: () {},
+                  onTap: () {
+                      context.push('/orderDetails', extra: doc);
+                  },
                   child: Column(
                     spacing: 1.sp,
                     children: [

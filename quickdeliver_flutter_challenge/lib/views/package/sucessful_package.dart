@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -11,6 +12,20 @@ class SucessfulPackage extends StatelessWidget {
   const SucessfulPackage({super.key, required this.orderID});
 
   final String orderID;
+
+  Future<DocumentSnapshot> fetchOrder() async {
+    final snapshot = await FirebaseFirestore.instance
+        .collection('Orders')
+        .where('orderID', isEqualTo: orderID)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isEmpty) {
+      throw Exception('Order not found');
+    }
+
+    return snapshot.docs.first;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +74,20 @@ class SucessfulPackage extends StatelessWidget {
             Spacer(),
             SuccessBtns(
                 buttonText: 'View Order Details',
-                function: () {},
+                function: () async {
+                  try {
+                    final doc = await fetchOrder();
+                    if (context.mounted) {
+                      context.push('/orderDetails', extra: doc);
+                    }
+                  } catch (e) {
+                    if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error: $e')),
+                    );
+                    }
+                  }
+                },
                 backgroundColor: AppColors.background,
                 borderColor: AppColors.primary,
                 textColor: AppColors.primary),

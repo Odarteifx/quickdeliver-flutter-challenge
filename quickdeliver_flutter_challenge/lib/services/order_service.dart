@@ -9,21 +9,29 @@ class OrderService {
 
   Future<String> createOrder({
     required String pickupLocation,
+    required double pickupLat,
+    required double pickupLng,
     required String dropOffLocation,
+    required double dropOffLat,
+    required double dropOffLng,
     required String receiverName,
     required String receiverPhone,
     required String description,
     required String size,
-     String? instructions,
+    String? instructions,
   }) async {
     final user = _auth.currentUser;
     if (user == null) throw Exception('No user logged in');
-     final orderID = generateOrderID();
+    final orderID = generateOrderID();
 
     await _firestore.collection('Orders').add({
       'orderID': orderID,
       'pickupLocation': pickupLocation,
+      'pickupLat': pickupLat,
+      'pickupLng': pickupLng,
       'dropOffLocation': dropOffLocation,
+      'dropOffLat': dropOffLat,
+      'dropOffLng': dropOffLng,
       'receiverName': receiverName,
       'receiverPhone': receiverPhone,
       'description': description,
@@ -33,7 +41,7 @@ class OrderService {
       'createdAt': FieldValue.serverTimestamp(),
       'userId': user.uid,
     });
-     return orderID;
+    return orderID;
   }
 }
 
@@ -42,7 +50,7 @@ String generateOrderID() {
   final datePart = "${now.year.toString().substring(2)}"
       "${now.month.toString().padLeft(2, '0')}"
       "${now.day.toString().padLeft(2, '0')}";
-  final randomPart = Random().nextInt(90000) + 10000; 
+  final randomPart = Random().nextInt(90000) + 10000;
 
   return "QD-$datePart-$randomPart";
 }

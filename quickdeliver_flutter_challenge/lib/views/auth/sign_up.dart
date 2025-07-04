@@ -51,7 +51,7 @@ class _SignUpState extends State<SignUp> {
     super.dispose();
   }
 
-  registration() async {
+  Future<void> registration() async {
     if (_formkey.currentState!.validate()) {
       setState(() => isLoading = true);
 
