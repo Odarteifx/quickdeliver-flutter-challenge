@@ -44,8 +44,8 @@
 ## ⚙️ Setup Instructions
 
 ### 1️⃣ Clone this repo
-git clone https://github.com/Odarteifx/quickdeliver-flutter-challenge.git
-cd quickdeliver
+- git clone https://github.com/Odarteifx/quickdeliver-flutter-challenge.git
+- cd quickdeliver
 
 ### 2️⃣ Install dependencies
 flutter pub get
