@@ -30,7 +30,6 @@ Future<void> setupFCM() async {
     }
   }
 
-  // 3. Get FCM Token only if permissions are authorized
   if (settings.authorizationStatus == AuthorizationStatus.authorized) {
     String? token;
     try {
@@ -72,26 +71,4 @@ Future<void> setupFCM() async {
       debugPrint('📦 Message Data: ${message.data}');
     }
   });
-
-  // 5. Handle messages when the app is in the background or terminated
-  // This typically involves setting up a top-level function outside of any class.
-  // For example:
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 }
-
-// Example of a background message handler (needs to be a top-level function)
-/*
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're using other Firebase services in your background handler, make sure to
-  // initialize them first if not already initialized by your main app.
-  // For example: await Firebase.initializeApp();
-  debugPrint('✅ Handling a background message: ${message.messageId}');
-  if (message.notification != null) {
-    debugPrint('📢 Notification Title (Background): ${message.notification!.title}');
-    debugPrint('📢 Notification Body (Background): ${message.notification!.body}');
-  }
-  if (message.data != null) {
-    debugPrint('📦 Message Data (Background): ${message.data}');
-  }
-}
-*/
