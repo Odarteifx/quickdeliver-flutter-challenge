@@ -3,11 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/deliveries_list.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
-import '../../widgets/home_widgets/status_badge.dart';
+import '../../widgets/package_widgets/order_tile.dart';
 
 class PackagesScreen extends StatefulWidget {
   const PackagesScreen({super.key});
@@ -57,7 +56,6 @@ class _PackagesScreenState extends State<PackagesScreen> {
         children: [
           SizedBox(height: 10.h),
 
-          // Status filter bar
           SizedBox(
             height: 40.h,
             child: ListView.builder(
@@ -71,6 +69,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                 return Padding(
                   padding: EdgeInsets.symmetric(horizontal: 6.w),
                   child: ChoiceChip(
+                    checkmarkColor: AppColors.background,
                     label: Text(status),
                     selected: isSelected,
                     selectedColor: AppColors.primary,
@@ -108,7 +107,7 @@ class _PackagesScreenState extends State<PackagesScreen> {
                 if (docs.isEmpty) {
                   return Center(
                     child: Text(
-                      'No packages found.',
+                      'No packages found',
                       style: GoogleFonts.poppins(
                         fontSize: AppFonts.subtext,
                         fontWeight: AppFontweight.medium,

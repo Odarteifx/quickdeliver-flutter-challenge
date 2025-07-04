@@ -16,7 +16,7 @@ class AppHome extends StatefulWidget {
 class _AppHomeState extends State<AppHome> {
   int _selectedIndex = 0;
 
-  final List _pages = [HomePage(), PackagesScreen(), UserProfile()];
+  final List _pages = [HomePage(), PackagesScreen(), UserProfileScreen()];
 
   @override
   Widget build(BuildContext context) {
