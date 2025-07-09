@@ -2,12 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'dart:io' show Platform; // Import for platform checks
+import 'dart:io' show Platform; 
 
 Future<void> setupFCM() async {
   FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-  // 1. Request Notification Permissions
   NotificationSettings settings = await messaging.requestPermission(
     alert: true,
     badge: true,
@@ -16,7 +15,6 @@ Future<void> setupFCM() async {
 
   debugPrint('✅ User granted permission: ${settings.authorizationStatus}');
 
-  // 2. Get APNS Token (iOS only) - Ensure it's available before getting FCM token
   if (Platform.isIOS) {
     try {
       String? apnsToken = await messaging.getAPNSToken();
@@ -60,7 +58,6 @@ Future<void> setupFCM() async {
     debugPrint('🚫 User did not grant notification permissions. FCM token not retrieved.');
   }
 
-  // 4. Listen for foreground messages
   FirebaseMessaging.onMessage.listen((RemoteMessage message) {
     debugPrint('✅ Got foreground message: ${message.messageId}');
     if (message.notification != null) {
