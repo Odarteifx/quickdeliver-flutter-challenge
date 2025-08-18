@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/deliveries_list.dart';
+import 'package:quickdeliver_flutter_challenge/services/notification_service.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
@@ -87,7 +88,29 @@ class _HomePageState extends State<HomePage> {
                     Spacer(),
                     IconButton(onPressed: () {}, icon: Icon(Iconsax.scan)),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final scaffoldMessenger = ScaffoldMessenger.of(context);
+                        try {
+                          await testLocalNotification();
+                          if (mounted) {
+                            scaffoldMessenger.showSnackBar(
+                              const SnackBar(
+                                content: Text('Test notification sent!'),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                          }
+                        } catch (e) {
+                          if (mounted) {
+                            scaffoldMessenger.showSnackBar(
+                              SnackBar(
+                                content: Text('Error sending test notification: $e'),
+                                backgroundColor: Colors.red,
+                              ),
+                            );
+                          }
+                        }
+                      },
                       icon: Icon(
                         Iconsax.notification_copy,
                       ),
@@ -126,6 +149,141 @@ class _HomePageState extends State<HomePage> {
                             
                           },
                         )
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ActionBtn(
+                          actionlogo: Iconsax.notification_copy,
+                          action: 'Test Notification',
+                          iconbackground: AppColors.background,
+                          backgroundColor: Colors.orange,
+                          function: () async {
+                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+                            try {
+                              await testLocalNotification();
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Test notification sent! Check your notification panel.'),
+                                    backgroundColor: Colors.green,
+                                  ),
+                                );
+                              }
+                            } catch (e) {
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  SnackBar(
+                                    content: Text('Error sending test notification: $e'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 8.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ActionBtn(
+                          actionlogo: Iconsax.info_circle,
+                          action: 'Check Status',
+                          iconbackground: AppColors.background,
+                          backgroundColor: Colors.blue,
+                          function: () async {
+                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+                            try {
+                              await checkNotificationStatus();
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Check console for notification status details'),
+                                    backgroundColor: Colors.blue,
+                                  ),
+                                );
+                              }
+                            } catch (e) {
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  SnackBar(
+                                    content: Text('Error checking status: $e'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        ),
+                        SizedBox(width: 8.w),
+                        ActionBtn(
+                          actionlogo: Iconsax.shield_tick,
+                          action: 'Request Permissions',
+                          iconbackground: AppColors.background,
+                          backgroundColor: Colors.purple,
+                          function: () async {
+                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+                            try {
+                              await requestIOSPermissions();
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  const SnackBar(
+                                    content: Text('iOS permissions requested. Check console for details.'),
+                                    backgroundColor: Colors.purple,
+                                  ),
+                                );
+                              }
+                            } catch (e) {
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  SnackBar(
+                                    content: Text('Error requesting permissions: $e'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 10.h),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ActionBtn(
+                          actionlogo: Iconsax.notification_copy,
+                          action: 'iOS Test Suite',
+                          iconbackground: AppColors.background,
+                          backgroundColor: Colors.teal,
+                          function: () async {
+                            final scaffoldMessenger = ScaffoldMessenger.of(context);
+                            try {
+                              await testIOSNotifications();
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  const SnackBar(
+                                    content: Text('iOS test suite completed. Check console and notifications!'),
+                                    backgroundColor: Colors.teal,
+                                  ),
+                                );
+                              }
+                            } catch (e) {
+                              if (mounted) {
+                                scaffoldMessenger.showSnackBar(
+                                  SnackBar(
+                                    content: Text('Error running iOS test suite: $e'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              }
+                            }
+                          },
+                        ),
                       ],
                     ),
                   ],

@@ -5,7 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
-
+import 'package:quickdeliver_flutter_challenge/services/notification_service.dart';
+import 'dart:io' show Platform;
 
 import 'core/router.dart';
 import 'firebase_options.dart';
@@ -23,6 +24,23 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  
+  // Initialize notification service
+  try {
+    await setupFCM();
+    debugPrint('✅ Notification service initialized successfully');
+    
+    // Check notification status after initialization
+    await checkNotificationStatus();
+    
+    // For iOS, also request permissions explicitly
+    if (Platform.isIOS) {
+      await requestIOSPermissions();
+    }
+  } catch (e) {
+    debugPrint('❌ Error initializing notification service: $e');
+  }
+  
   runApp(const MyApp());
 }
 
