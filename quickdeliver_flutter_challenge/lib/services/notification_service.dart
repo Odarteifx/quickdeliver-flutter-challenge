@@ -72,7 +72,7 @@ Future<void> showNotification() async {
   await flutterLocalNotificationsPlugin.show(
     0, 
     'QuickDeliver', 
-    'Delivery has been scheduled 🎉', 
+    'Order has been scheduled 🎉', 
     platformDetails,
   );
 }

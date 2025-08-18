@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {}, icon: Icon(Iconsax.scan)),
                     IconButton(
                       onPressed: () async {
-                        showNotification();
+                        // showNotification();
                       },
                       icon: Icon(
                         Iconsax.notification_copy,
@@ -125,7 +125,9 @@ class _HomePageState extends State<HomePage> {
                             action: 'Track Package',
                             iconbackground: Colors.white,
                             backgroundColor: Colors.black,
-                            function: () {},
+                            function: () {
+                              context.push('/trackPackage');
+                            },
                           )
                         ],
                       ),

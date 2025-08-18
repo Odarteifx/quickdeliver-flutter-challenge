@@ -6,6 +6,7 @@ import 'package:quickdeliver_flutter_challenge/views/home/home_screen.dart';
 import 'package:quickdeliver_flutter_challenge/views/onboarding/onboarding.dart';
 import 'package:quickdeliver_flutter_challenge/views/package/order_details.dart';
 import 'package:quickdeliver_flutter_challenge/views/package/sucessful_package.dart';
+import 'package:quickdeliver_flutter_challenge/views/package/track_package.dart';
 
 import '../views/package/new_package.dart';
 import '../views/splash/splash.dart';
@@ -49,6 +50,8 @@ final GoRouter router = GoRouter(
         final order = state.extra as DocumentSnapshot;
         return OrderDetailsScreen(order: order);
       },
-    )
+    ),
+    GoRoute(path: '/trackPackage',
+    builder: (context, state) => TrackPackage(),)
   ],
 );

@@ -9,7 +9,6 @@ import 'package:quickdeliver_flutter_challenge/core/app_fonts.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/page_heading.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/sub_text.dart';
 
-import '../../services/notification_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
 import '../../widgets/auth_widgets/auth_options.dart';
 import '../../widgets/auth_widgets/email_textfield.dart';
