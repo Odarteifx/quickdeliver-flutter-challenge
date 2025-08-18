@@ -89,27 +89,7 @@ class _HomePageState extends State<HomePage> {
                     IconButton(onPressed: () {}, icon: Icon(Iconsax.scan)),
                     IconButton(
                       onPressed: () async {
-                        final scaffoldMessenger = ScaffoldMessenger.of(context);
-                        try {
-                          await testLocalNotification();
-                          if (mounted) {
-                            scaffoldMessenger.showSnackBar(
-                              const SnackBar(
-                                content: Text('Test notification sent!'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                          }
-                        } catch (e) {
-                          if (mounted) {
-                            scaffoldMessenger.showSnackBar(
-                              SnackBar(
-                                content: Text('Error sending test notification: $e'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
-                        }
+                        showNotification();
                       },
                       icon: Icon(
                         Iconsax.notification_copy,
@@ -119,182 +99,45 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
                 Column(
-                  spacing: 10.sp,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Quick Actions',
-                      style: GoogleFonts.poppins(
-                          fontWeight: AppFontweight.medium,
-                          fontSize: AppFonts.onboadingbody),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ActionBtn(
-                          actionlogo: Iconsax.box_add_copy,
-                          action: 'New Delivery',
-                          iconbackground: AppColors.background,
-                          backgroundColor: AppColors.primary,
-                          function: (){
-                            context.push('/newdelivery');
-                          },
-                        ),
-                        ActionBtn(
-                          actionlogo: Iconsax.box_search_copy,
-                          action: 'Track Package',
-                          iconbackground: Colors.white,
-                          backgroundColor: Colors.black,
-                          function:(){
-                            
-                          },
-                        )
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ActionBtn(
-                          actionlogo: Iconsax.notification_copy,
-                          action: 'Test Notification',
-                          iconbackground: AppColors.background,
-                          backgroundColor: Colors.orange,
-                          function: () async {
-                            final scaffoldMessenger = ScaffoldMessenger.of(context);
-                            try {
-                              await testLocalNotification();
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Test notification sent! Check your notification panel.'),
-                                    backgroundColor: Colors.green,
-                                  ),
-                                );
-                              }
-                            } catch (e) {
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Error sending test notification: $e'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 8.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ActionBtn(
-                          actionlogo: Iconsax.info_circle,
-                          action: 'Check Status',
-                          iconbackground: AppColors.background,
-                          backgroundColor: Colors.blue,
-                          function: () async {
-                            final scaffoldMessenger = ScaffoldMessenger.of(context);
-                            try {
-                              await checkNotificationStatus();
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Check console for notification status details'),
-                                    backgroundColor: Colors.blue,
-                                  ),
-                                );
-                              }
-                            } catch (e) {
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Error checking status: $e'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            }
-                          },
-                        ),
-                        SizedBox(width: 8.w),
-                        ActionBtn(
-                          actionlogo: Iconsax.shield_tick,
-                          action: 'Request Permissions',
-                          iconbackground: AppColors.background,
-                          backgroundColor: Colors.purple,
-                          function: () async {
-                            final scaffoldMessenger = ScaffoldMessenger.of(context);
-                            try {
-                              await requestIOSPermissions();
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  const SnackBar(
-                                    content: Text('iOS permissions requested. Check console for details.'),
-                                    backgroundColor: Colors.purple,
-                                  ),
-                                );
-                              }
-                            } catch (e) {
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Error requesting permissions: $e'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 10.h),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        ActionBtn(
-                          actionlogo: Iconsax.notification_copy,
-                          action: 'iOS Test Suite',
-                          iconbackground: AppColors.background,
-                          backgroundColor: Colors.teal,
-                          function: () async {
-                            final scaffoldMessenger = ScaffoldMessenger.of(context);
-                            try {
-                              await testIOSNotifications();
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  const SnackBar(
-                                    content: Text('iOS test suite completed. Check console and notifications!'),
-                                    backgroundColor: Colors.teal,
-                                  ),
-                                );
-                              }
-                            } catch (e) {
-                              if (mounted) {
-                                scaffoldMessenger.showSnackBar(
-                                  SnackBar(
-                                    content: Text('Error running iOS test suite: $e'),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                );
-                              }
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                    spacing: 10.sp,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Quick Actions',
+                        style: GoogleFonts.poppins(
+                            fontWeight: AppFontweight.medium,
+                            fontSize: AppFonts.onboadingbody),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          ActionBtn(
+                            actionlogo: Iconsax.box_add_copy,
+                            action: 'New Delivery',
+                            iconbackground: AppColors.background,
+                            backgroundColor: AppColors.primary,
+                            function: () {
+                              context.push('/newdelivery');
+                            },
+                          ),
+                          ActionBtn(
+                            actionlogo: Iconsax.box_search_copy,
+                            action: 'Track Package',
+                            iconbackground: Colors.white,
+                            backgroundColor: Colors.black,
+                            function: () {},
+                          )
+                        ],
+                      ),
+                      SizedBox(height: 10.h),
+                    ]),
                 Text(
                   'Your Deliveries',
                   style: GoogleFonts.poppins(
                       fontSize: AppFonts.onboadingbody,
                       fontWeight: AppFontweight.medium),
                 ),
-               DeliveriesList() 
+                DeliveriesList()
               ],
             ),
           ],

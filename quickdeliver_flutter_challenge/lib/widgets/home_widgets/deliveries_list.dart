@@ -3,13 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickdeliver_flutter_challenge/services/notification_service.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
 import '../package_widgets/order_tile.dart';
 
-class DeliveriesList extends StatelessWidget {
+class DeliveriesList extends StatefulWidget {
   const DeliveriesList({super.key});
+
+  @override
+  State<DeliveriesList> createState() => _DeliveriesListState();
+}
+
+class _DeliveriesListState extends State<DeliveriesList> {
+  final Map<String, String> _orderIdToLastStatus = {};
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +65,20 @@ class DeliveriesList extends StatelessWidget {
           }
 
           final orders = snapshot.data!.docs;
+
+          // Detect status changes and notify
+          for (final doc in orders) {
+            final String orderId = doc['orderID'];
+            final String currentStatus = doc['status'];
+            final String? lastStatus = _orderIdToLastStatus[orderId];
+            if (lastStatus != null && lastStatus != currentStatus) {
+              showStatusNotification(
+                title: 'Order $orderId',
+                body: 'Package $currentStatus',
+              );
+            }
+            _orderIdToLastStatus[orderId] = currentStatus;
+          }
 
           return ListView.builder(
             itemCount: orders.length,

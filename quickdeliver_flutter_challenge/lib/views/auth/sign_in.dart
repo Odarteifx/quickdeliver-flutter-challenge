@@ -56,7 +56,6 @@ class _SignInState extends State<SignIn> {
       try {
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
-           await setupFCM();
         if (mounted) {
           context.go('/home');
         }

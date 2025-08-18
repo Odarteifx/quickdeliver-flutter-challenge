@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
 import '../../models/place_suggestions.dart';
+import '../../services/notification_service.dart';
 import '../../services/order_service.dart';
 import '../../services/place_service.dart';
 import '../../widgets/auth_widgets/action_btn.dart';
@@ -347,6 +348,7 @@ class _NewDeliveryState extends State<NewDelivery> {
                   buttonText: 'Submit',
                   function: () {
                     submitOrder();
+                    showNotification();
                   },
                   isLoading: isLoading,
                 )

@@ -84,7 +84,6 @@ class _SignUpState extends State<SignUp> {
 
           await FirebaseAuth.instance.currentUser?.reload();
 
-          await setupFCM();
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
