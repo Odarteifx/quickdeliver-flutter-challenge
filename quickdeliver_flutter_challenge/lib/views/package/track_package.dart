@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
@@ -134,16 +135,16 @@ class _TrackPackageState extends State<TrackPackage> {
                   ),
                   suffixIcon: (_isLoading || _isSuggesting)
                       ? Padding(
-                          padding: EdgeInsets.all(10.sp),
+                          padding: EdgeInsets.all(15.sp),
                           child: SizedBox(
-                            width: 18.sp,
-                            height: 18.sp,
+                            width: 10.sp,
+                            height:10.sp,
                             child:
                                 const CircularProgressIndicator(strokeWidth: 2),
                           ),
                         )
                       : IconButton(
-                          icon: const Icon(Icons.search),
+                          icon: Icon(Iconsax.search_normal_copy, color: AppColors.subtext, size: 22.sp, ),
                           onPressed: () =>
                               _getPackage(_trackingController.text),
                         ),
@@ -178,7 +179,9 @@ class _TrackPackageState extends State<TrackPackage> {
                         },
                         child: Container(
                           decoration:
-                              BoxDecoration(color: AppColors.background),
+                              BoxDecoration(color: AppColors.background,
+                              borderRadius: BorderRadius.circular(8.r),
+                              border: Border.all(width: 0.5.sp, color: AppColors.iconColor)),
                           child: Padding(
                             padding: EdgeInsets.all(20.sp),
                             child: Row(
@@ -186,7 +189,7 @@ class _TrackPackageState extends State<TrackPackage> {
                               children: [
                                 Text(orderId,
                                     style: GoogleFonts.poppins(
-                                        fontSize: AppFonts.subtext)),
+                                        fontSize: AppFonts.subtext, fontWeight: AppFontweight.semibold, color: AppColors.subtext)),
                                 StatusBadge(status: status)
                               ],
                             ),
