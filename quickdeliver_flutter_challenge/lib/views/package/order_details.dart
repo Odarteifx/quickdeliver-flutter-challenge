@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,15 +61,6 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         ),
       );
-
-      _polylines.add(
-        Polyline(
-          polylineId: const PolylineId('route'),
-          points: [pickup, dropOff],
-          color: Colors.black,
-          width: 4,
-        ),
-      );
     });
   }
 
@@ -78,10 +70,11 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   double dropOffLat = widget.order['dropOffLat'];
   double dropOffLng = widget.order['dropOffLng'];
 
-  PolylinePoints polylinePoints = PolylinePoints(apiKey: 'AIzaSyAkLJl0_qRbYcIU4h0OWzdF8DzxXm8djaY');
+  PolylinePoints polylinePoints = PolylinePoints(apiKey: dotenv.env['GOOGLE_MAPS_API_KEY'] ?? "");
 
   // ✅ New way using PolylineRequest
   PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+    // ignore: deprecated_member_use
     request: PolylineRequest(
       origin: PointLatLng(pickupLat, pickupLng),
       destination: PointLatLng(dropOffLat, dropOffLng),
