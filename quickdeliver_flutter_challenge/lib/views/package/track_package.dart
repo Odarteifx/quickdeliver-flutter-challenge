@@ -6,6 +6,7 @@ import 'package:quickdeliver_flutter_challenge/core/app_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:go_router/go_router.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/status_badge.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '../../core/app_fonts.dart';
 
@@ -32,25 +33,48 @@ class _TrackPackageState extends State<TrackPackage> {
       return;
     }
 
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('You must be logged in')),
+      );
+      return;
+    }
+
     setState(() => _isLoading = true);
     try {
+      print('Searching for orderID: $query');
+      print('User ID: ${user.uid}');
+      
+      // First get all user's orders
       final snapshot = await FirebaseFirestore.instance
           .collection('Orders')
-          .where('orderID', isEqualTo: query)
-          .limit(1)
+          .where('userId', isEqualTo: user.uid)
           .get();
+
+      print('Found ${snapshot.docs.length} total documents for user');
+      
+      // Filter client-side for exact match
+      final matchingDocs = snapshot.docs.where((doc) {
+        final orderId = doc.data()['orderID'] as String? ?? '';
+        return orderId.toLowerCase() == query.toLowerCase();
+      }).toList();
+      
+      print('Found ${matchingDocs.length} matching documents');
 
       if (!mounted) return;
 
-      if (snapshot.docs.isEmpty) {
+      if (matchingDocs.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Package not found')),
         );
       } else {
-        final doc = snapshot.docs.first;
+        final doc = matchingDocs.first;
         context.push('/orderDetails', extra: doc);
       }
     } catch (e) {
+      print('Error searching: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e')),
@@ -59,6 +83,7 @@ class _TrackPackageState extends State<TrackPackage> {
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }
+
   }
 
   Future<void> _fetchSuggestions(String input) async {
@@ -69,18 +94,29 @@ class _TrackPackageState extends State<TrackPackage> {
       });
       return;
     }
+    
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) return;
+    
     setState(() => _isSuggesting = true);
     try {
       final results = await FirebaseFirestore.instance
           .collection('Orders')
-          .orderBy('orderID')
-          .startAt([query])
-          .endAt(['$query\uf8ff'])
-          .limit(10)
+          .where('userId', isEqualTo: user.uid)
+          .orderBy('createdAt', descending: true)
+          .limit(50)
           .get();
+      
       if (!mounted) return;
+      
+      // Filter client-side for orderID prefix match
+      final filteredDocs = results.docs.where((doc) {
+        final orderId = doc.data()['orderID'] as String? ?? '';
+        return orderId.toLowerCase().startsWith(query.toLowerCase());
+      }).take(10).toList();
+      
       setState(() {
-        _suggestions = results.docs;
+        _suggestions = filteredDocs;
       });
     } catch (_) {
       // ignore

@@ -84,6 +84,7 @@ class _NewDeliveryState extends State<NewDelivery> {
 
         if (mounted) {
           context.go('/success', extra: orderID);
+           showNotification();
         }
       } catch (e) {
         if (mounted) {
@@ -348,7 +349,6 @@ class _NewDeliveryState extends State<NewDelivery> {
                   buttonText: 'Submit',
                   function: () {
                     submitOrder();
-                    showNotification();
                   },
                   isLoading: isLoading,
                 )

@@ -5,8 +5,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 import 'package:quickdeliver_flutter_challenge/widgets/home_widgets/deliveries_list.dart';
-import 'package:quickdeliver_flutter_challenge/services/notification_service.dart';
-
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
 import '../../widgets/home_widgets/major_btns.dart';
