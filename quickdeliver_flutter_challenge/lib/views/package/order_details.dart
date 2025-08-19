@@ -60,7 +60,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
         Polyline(
           polylineId: const PolylineId('route'),
           points: [pickup, dropOff],
-          color: Colors.blue,
+          color: Colors.black,
           width: 4,
         ),
       );

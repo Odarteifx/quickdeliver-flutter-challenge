@@ -44,8 +44,8 @@ class _TrackPackageState extends State<TrackPackage> {
 
     setState(() => _isLoading = true);
     try {
-      print('Searching for orderID: $query');
-      print('User ID: ${user.uid}');
+      debugPrint('Searching for orderID: $query');
+      debugPrint('User ID: ${user.uid}');
       
       // First get all user's orders
       final snapshot = await FirebaseFirestore.instance
@@ -53,7 +53,7 @@ class _TrackPackageState extends State<TrackPackage> {
           .where('userId', isEqualTo: user.uid)
           .get();
 
-      print('Found ${snapshot.docs.length} total documents for user');
+      debugPrint('Found ${snapshot.docs.length} total documents for user');
       
       // Filter client-side for exact match
       final matchingDocs = snapshot.docs.where((doc) {
@@ -61,7 +61,7 @@ class _TrackPackageState extends State<TrackPackage> {
         return orderId.toLowerCase() == query.toLowerCase();
       }).toList();
       
-      print('Found ${matchingDocs.length} matching documents');
+      debugPrint('Found ${matchingDocs.length} matching documents');
 
       if (!mounted) return;
 
@@ -74,7 +74,7 @@ class _TrackPackageState extends State<TrackPackage> {
         context.push('/orderDetails', extra: doc);
       }
     } catch (e) {
-      print('Error searching: $e');
+      debugPrint('Error searching: $e');
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Error: $e')),

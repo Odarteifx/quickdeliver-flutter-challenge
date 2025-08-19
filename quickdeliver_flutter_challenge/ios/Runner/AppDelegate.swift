@@ -11,7 +11,7 @@ import UserNotifications
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
      FirebaseApp.configure()
-    GMSServices.provideAPIKey("AIzaSyAsbgmGJS6aQVd3tmqxyMM7QkIv89kfD3")
+    GMSServices.provideAPIKey("AIzaSyAsbgmGJS6aQVd3tmqxyMM7QkIv89kfD3I")
     // Ensure local/push notifications can be presented while app is in foreground
     if #available(iOS 10.0, *) {
       UNUserNotificationCenter.current().delegate = self
