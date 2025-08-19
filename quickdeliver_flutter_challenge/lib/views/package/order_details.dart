@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 
 import '../../core/app_colors.dart';
 import '../../core/app_fonts.dart';
@@ -22,11 +23,13 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
   GoogleMapController? _mapController;
   final Set<Marker> _markers = {};
   final Set<Polyline> _polylines = {};
+  List<LatLng> polylineCoordinates = [];
 
   @override
   void initState() {
     super.initState();
     _setupMap();
+     _getRoute();
   }
 
   void _setupMap() {
@@ -45,6 +48,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           markerId: const MarkerId('pickup'),
           position: pickup,
           infoWindow: const InfoWindow(title: 'Pickup'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
         ),
       );
 
@@ -53,6 +57,7 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
           markerId: const MarkerId('dropOff'),
           position: dropOff,
           infoWindow: const InfoWindow(title: 'Drop-off'),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
         ),
       );
 
@@ -66,6 +71,47 @@ class _OrderDetailsScreenState extends State<OrderDetailsScreen> {
       );
     });
   }
+
+  void _getRoute() async {
+  double pickupLat = widget.order['pickupLat'];
+  double pickupLng = widget.order['pickupLng'];
+  double dropOffLat = widget.order['dropOffLat'];
+  double dropOffLng = widget.order['dropOffLng'];
+
+  PolylinePoints polylinePoints = PolylinePoints(apiKey: 'AIzaSyAkLJl0_qRbYcIU4h0OWzdF8DzxXm8djaY');
+
+  // ✅ New way using PolylineRequest
+  PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+    request: PolylineRequest(
+      origin: PointLatLng(pickupLat, pickupLng),
+      destination: PointLatLng(dropOffLat, dropOffLng),
+      mode: TravelMode.driving, // walking, bicycling also available
+
+    ),
+  );
+
+  if (result.points.isNotEmpty) {
+    polylineCoordinates.clear();
+    for (var point in result.points) {
+      polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+    }
+
+    setState(() {
+      _polylines.add(
+        Polyline(
+          polylineId: PolylineId("route"),
+          points: polylineCoordinates,
+          color: AppColors.primary,
+          width: 5,
+        ),
+      );
+    });
+  } else {
+    debugPrint("No polyline points found: ${result.errorMessage}");
+  }
+}
+
+
 
   @override
   Widget build(BuildContext context) {
